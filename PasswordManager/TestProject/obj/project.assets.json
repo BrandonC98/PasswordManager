@@ -4626,8 +4626,8 @@
     },
     "PasswordManager/1.0.0": {
       "type": "project",
-      "path": "../EncryptPassword/PasswordManager.csproj",
-      "msbuildProject": "../EncryptPassword/PasswordManager.csproj"
+      "path": "../PasswordManager/PasswordManager.csproj",
+      "msbuildProject": "../PasswordManager/PasswordManager.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4672,6 +4672,9 @@
           "projectReferences": {
             "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\EncryptPassword\\PasswordManager.csproj": {
               "projectPath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\EncryptPassword\\PasswordManager.csproj"
+            },
+            "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManager\\PasswordManager.csproj": {
+              "projectPath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManager\\PasswordManager.csproj"
             }
           }
         }

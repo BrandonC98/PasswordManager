@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "czLGFJCoWMrRdF/5kpjyOQQ8D/vyJ47y/fGm+oBgSMX5YbpQAjT80SYaXCVFzsujN9ep5Bihn+ZxYm467GaacA==",
+  "dgSpecHash": "4oBf3CwdzGj/UB6TxB2yZJBmotK9RuGsLo7A732Vj9/B9DOMfCtK0HDHGZxC/JWfG4WDa04PLmlLUClj6zhWhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\EncryptPassword\\PasswordManager.csproj",
+  "projectFilePath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManager\\PasswordManager.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
