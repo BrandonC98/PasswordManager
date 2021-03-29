@@ -27,12 +27,12 @@ namespace PasswordManager
             //if (Hash.CompareHash(hashPassword, hashPassword2)) Console.WriteLine("Login Successful");
             //else Console.WriteLine("Failed login");
 
-            using (var db = new PasswordmanagerContext())
+            using (var db = new PasswordManagerContext())
             {
 
-                db.websites.Add(new Website() { Name = "Google", Username = "me123" });
-                db.websites.Add(new Website() { Name = "YouTube", Username = "you123" });
-                db.websites.Add(new Website() { Name = "Facebook", Username = "Booo123" });
+                //db.websites.Add(new Website() { Name = "Google", Username = "me123" });
+                //db.websites.Add(new Website() { Name = "YouTube", Username = "you123" });
+                //db.websites.Add(new Website() { Name = "Facebook", Username = "Booo123" });
 
                 db.SaveChanges();
 

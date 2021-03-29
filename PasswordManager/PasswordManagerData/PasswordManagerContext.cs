@@ -7,9 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PasswordManagerData
 {
-    public class PasswordmanagerContext :   DbContext
+    public class PasswordManagerContext :   DbContext
     {
 
         public DbSet<Website> websites { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+    => options.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PasswordManager;");
+
+
     }
 }
