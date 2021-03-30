@@ -14,6 +14,8 @@ namespace PasswordManagerData
         public int Id { get; set; }
         public string IpAddress{ get; set; }
         public string Note { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

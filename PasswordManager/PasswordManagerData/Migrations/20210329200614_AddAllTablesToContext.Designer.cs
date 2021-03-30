@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PasswordManagerData;
 
 namespace PasswordManagerData.Migrations
 {
     [DbContext(typeof(PasswordManagerContext))]
-    partial class PasswordManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20210329200614_AddAllTablesToContext")]
+    partial class AddAllTablesToContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace PasswordManagerData.Migrations
                     b.Property<string>("IpAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("time")
@@ -58,7 +60,7 @@ namespace PasswordManagerData.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -149,9 +151,7 @@ namespace PasswordManagerData.Migrations
                 {
                     b.HasOne("PasswordManagerData.User", "User")
                         .WithMany("AccessHistories")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -160,9 +160,7 @@ namespace PasswordManagerData.Migrations
                 {
                     b.HasOne("PasswordManagerData.User", "User")
                         .WithMany("Blacklists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

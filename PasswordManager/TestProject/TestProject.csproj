@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PasswordManagerData\PasswordManagerData.csproj" />
     <ProjectReference Include="..\PasswordManager\PasswordManager.csproj" />
   </ItemGroup>
 

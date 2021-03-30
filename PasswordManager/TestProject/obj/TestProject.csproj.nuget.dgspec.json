@@ -184,6 +184,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManagerData\\PasswordManagerData.csproj": {
+                "projectPath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManagerData\\PasswordManagerData.csproj"
+              },
               "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManager\\PasswordManager.csproj": {
                 "projectPath": "C:\\Users\\Brandon\\Documents\\Sparta Global\\Training\\Project\\PasswordManager\\PasswordManager\\PasswordManager.csproj"
               }
