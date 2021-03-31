@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace PasswordManager
 {
-    class SymmetricEncryption
+    public class SymmetricEncryption
     {
 
         public static string Encrypt(string key, string plainText)
         {
 
             Aes aes = Aes.Create();
-
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.IV = new byte[16];
 

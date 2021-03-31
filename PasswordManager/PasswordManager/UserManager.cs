@@ -32,7 +32,7 @@ namespace PasswordManager
 
         }
 
-        public User Retrive(int id)
+        public User Retrieve(int id)
         {
 
             using (var db = new PasswordManagerContext())

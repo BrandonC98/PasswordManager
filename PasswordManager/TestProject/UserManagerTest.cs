@@ -78,7 +78,7 @@ namespace TestProject
             using (var db = new PasswordManagerContext())
             {
                 var expectedUser = db.users.Find(testUser.Id);
-                var user = _userManager.Retrive(testUser.Id);
+                var user = _userManager.Retrieve(testUser.Id);
 
                 Assert.AreEqual(expectedUser.Id, user.Id);
 
@@ -92,12 +92,8 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-                _userManager.Create("Brandon", "Campbell", "MyEmail@Emails.com");
-                var user = db.users.Where(u => u.EmailAddress == "MyEmail@Emails.com").FirstOrDefault();
-                _userManager.Update(user.Id, newLastName: "Smith");
-
-                
-                Assert.AreEqual("Smith", db.users.Find(user.Id).LastName);
+                _userManager.Update(testUser.Id, newLastName: "Smith");
+                Assert.AreEqual("Smith", db.users.Find(testUser.Id).LastName);
 
             }
         }
