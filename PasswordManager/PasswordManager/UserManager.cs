@@ -43,6 +43,17 @@ namespace PasswordManager
 
         }
 
+        public User Retrieve(string email)
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+
+                return db.users.Where(u => u.EmailAddress == email).FirstOrDefault();
+            }
+
+        }
+
         public void Delete(int id)
         {
 

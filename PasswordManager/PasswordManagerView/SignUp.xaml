@@ -1,0 +1,42 @@
+﻿<Page x:Class="PasswordManagerView.SignUp"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PasswordManagerView"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SignUp">
+
+    <Grid>
+       <Label Content="Sign up" Grid.Column="2" Background="#00493D3D" Foreground="White" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button Content="Create" Grid.Column="3" Margin="39,26,39,26" Grid.Row="4" Click="BtnClickCreate"/>
+        <PasswordBox x:Name="PasswordTxtBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290"/>
+        <TextBox x:Name="EmailTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Enter Email:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="73"/>
+        <Label Content="Enter Password:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="92"/>
+        <PasswordBox x:Name="ConfirmPasswordTxtBox" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290"/>
+        <Label Content="Confirm Password:" Grid.Column="1" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="107"/>
+        <Label Content="Enter Name:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="92"/>
+        <TextBox x:Name="FirstNameTxtBox" TextWrapping="Wrap" Width="131" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,33,0,0" Text="First name"/>
+        <TextBox x:Name="LastNameTxtBox" TextWrapping="Wrap" Width="131" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,33,0,0" Text="Last name"/>
+        <ContentControl x:Name="contentControl2" Grid.Row="1"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="76*"/>
+            <RowDefinition Height="77*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="62*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+
+    </Grid>
+</Page>
