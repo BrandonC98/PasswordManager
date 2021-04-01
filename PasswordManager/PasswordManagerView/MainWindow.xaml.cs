@@ -31,10 +31,11 @@ namespace PasswordManagerView
             _websiteManager = new WebsiteManager();
             UserId = userId;
 
-
-            WebsiteList.ItemsSource = _websiteManager.GetAll(UserId).Select(w => w.Name);
+            PopulateWebsiteList();
 
         }
+
+        public void PopulateWebsiteList() => WebsiteList.ItemsSource = _websiteManager.GetAll(UserId).Select(w => w.Name);   
 
         private void WebsiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -44,7 +45,7 @@ namespace PasswordManagerView
         private void BtnClickNew(object sender, RoutedEventArgs e)
         {
 
-            DetailsWindow.Content = new NewEntryPage(UserId);
+            DetailsWindow.Content = new NewEntryPage(UserId, this);
 
         }
     }

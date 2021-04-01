@@ -19,19 +19,21 @@ namespace PasswordManagerView
     /// <summary>
     /// Interaction logic for NewEntryPage.xaml
     /// </summary>
-    public partial class NewEntryPage : Page
+    public partial class NewEntryPage : Page,   IPasswordProtectable
     {
 
         public int UserId { get; set; }
 
         WebsiteManager _websiteManager;
         MasterPasswordManager _masterPasswordManager;
+        MainWindow mainWindow;
 
 
-        public NewEntryPage(int userId)
+        public NewEntryPage(int userId, MainWindow window)
         {
             InitializeComponent();
             UserId = userId;
+            mainWindow = window;
             _websiteManager = new WebsiteManager();
             _masterPasswordManager = new MasterPasswordManager();
 
@@ -40,21 +42,23 @@ namespace PasswordManagerView
         private void BtnClickCreateWebsite(object sender, RoutedEventArgs e)
         {
 
-            var masterPassword = _masterPasswordManager.RetrieveByUserId(UserId);
+            if (WebsiteNameTxtBox.Text == null || WebsitePasswordTxtBox.Password == null) return;
 
-            var key = Hash.GenerateHash(Encoding.ASCII.GetBytes(MasterPasswordTxtBoxNewEntry.Password), masterPassword.Salt, masterPassword.Iterations, 16);
+            EnterMasterPassword enterMasterPasswordWindow = new EnterMasterPassword(UserId, this);
+            enterMasterPasswordWindow.Show();
 
-            if(Hash.CompareHash(key, masterPassword.Hash))
-            {
+        }
 
-                var encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(key), WebsitePasswordTxtBox.Password);
+        public void FillDetails(byte[] hashKey)
+        {
 
-                _websiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
+            var encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), WebsitePasswordTxtBox.Password);
 
-
-            }
+            _websiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
+            mainWindow.PopulateWebsiteList();
 
 
         }
+
     }
 }
