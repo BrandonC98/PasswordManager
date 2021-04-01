@@ -22,17 +22,18 @@ namespace PasswordManagerView
         public LoginWindow()
         {
             InitializeComponent();
-            MainLogin.Content = new Login();
+            
+            MainLogin.Content = new Login() { Window = this };
         }
 
         private void BtnClickLoginPage(object sender, RoutedEventArgs e)
         {
-            MainLogin.Content = new Login();
+            MainLogin.Content = new Login() { Window = this };
         }
 
         private void BtnClickSignUpPage(object sender, RoutedEventArgs e)
         {
-            MainLogin.Content = new SignUp();
+            MainLogin.Content = new SignUp() { Window = this};
         }
     }
 }

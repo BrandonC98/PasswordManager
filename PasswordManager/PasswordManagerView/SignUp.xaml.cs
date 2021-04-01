@@ -21,6 +21,9 @@ namespace PasswordManagerView
     /// </summary>
     public partial class SignUp : Page
     {
+
+        public LoginWindow Window { get; set; }
+
         public SignUp()
         {
             InitializeComponent();
@@ -30,8 +33,17 @@ namespace PasswordManagerView
         private void BtnClickCreate(object sender, RoutedEventArgs e)
         {
 
+
             var userManager = new UserManager();
             var mPasswordManager = new MasterPasswordManager();
+            
+            if(userManager.Exist(EmailTxtBox.Text))
+            {
+
+                MessageBox.Show("This Email Address already has an account");
+                return;
+
+            }
 
             if (ConfirmPasswordTxtBox.Password != PasswordTxtBox.Password) return;
 
@@ -39,7 +51,9 @@ namespace PasswordManagerView
             var salt = Hash.GenerateSalt(20);
             var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), salt, 1000, 16);
             mPasswordManager.Create(userManager.Retrieve(EmailTxtBox.Text).Id, salt, hash);
-
+            MessageBox.Show("Account Created");
+            Window.MainLogin.Content = new Login() { Window = Window };
+            
         }
     }
 }

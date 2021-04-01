@@ -6,11 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManagerView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#FF7C7C7C">
 
     <Grid>
-        
-       
+        <ListBox x:Name="WebsiteList" Margin="0,35,650,35" SelectionChanged="WebsiteList_SelectionChanged"/>
+        <Button Content="New Entry" MinWidth="100" Click="BtnClickNew" Margin="0,400,650,0"/>
+        <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+            <Button Content="Manager" MinWidth="100" />
+        </StackPanel>
+        <Frame x:Name="DetailsWindow" Margin="150,35,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
     

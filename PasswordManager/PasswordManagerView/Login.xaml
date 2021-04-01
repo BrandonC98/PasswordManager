@@ -25,9 +25,9 @@
             <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Login" Grid.Column="2" Background="#00493D3D" Foreground="White" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button Content="Login"  Grid.Column="2" Margin="143,21,139,30" Grid.Row="4"/>
-        <PasswordBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290"/>
-        <TextBox TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Click="BtnClickLogin" Content="Login"  Grid.Column="2" Margin="143,21,139,30" Grid.Row="4"/>
+        <PasswordBox x:Name="PasswordTxtBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290"/>
+        <TextBox x:Name="EmailTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Email:" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="44"/>
         <Label Content="Password:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="65"/>
     </Grid>

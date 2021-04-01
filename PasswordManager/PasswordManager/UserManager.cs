@@ -43,6 +43,20 @@ namespace PasswordManager
 
         }
 
+        public bool Exist(string email)
+        {
+
+
+            using(var db = new PasswordManagerContext())
+            {
+
+                if (db.users.Any(u => u.EmailAddress == email)) return true;
+                else return false;
+
+            }
+
+        }
+
         public User Retrieve(string email)
         {
 
@@ -83,19 +97,7 @@ namespace PasswordManager
 
         }
 
-        public void AddPassword(int id, MasterPassword masterPassword)
-        {
 
-            using(var db = new PasswordManagerContext())
-            {
-
-                var user = db.users.Find(id);
-                user.MasterPassword = masterPassword;
-                db.SaveChanges();
-
-            }
-
-        }
 
     }
 

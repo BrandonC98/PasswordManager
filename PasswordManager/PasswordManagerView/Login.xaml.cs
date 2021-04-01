@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PasswordManager;
 
 namespace PasswordManagerView
 {
@@ -20,19 +21,39 @@ namespace PasswordManagerView
     /// </summary>
     public partial class Login : Page
     {
-        NavigationService nav;
+
+        public LoginWindow Window { get; set; }
+
         public Login()
         {
             InitializeComponent();
+
         }
 
-        private void SignUpBtnClick(object sender, RoutedEventArgs e)
+        private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
 
-            SignUp signUp = new SignUp();
-            MainWindow mainWindow = new MainWindow();
-            //this.Content = mainWindow.Content
-            //nav.Navigate(signUp);
+            var userManager = new UserManager();
+            var mPasswordManager = new MasterPasswordManager();
+
+            var u = userManager.Retrieve(EmailTxtBox.Text);
+
+            if (u == null) return;
+
+            var mp = mPasswordManager.RetrieveByUserId(u.Id);
+
+            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), mp.Salt, mp.Iterations, 16);
+
+            if (Hash.CompareHash(hash, mp.Hash))
+            {
+                MessageBox.Show("Logged in");
+
+                MainWindow main = new MainWindow(u.Id);
+                Window.Visibility = Visibility.Hidden;
+                main.Show();
+
+            }
+            else MessageBox.Show("Failed to login");
 
         }
     }

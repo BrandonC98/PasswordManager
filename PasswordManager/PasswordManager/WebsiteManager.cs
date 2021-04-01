@@ -72,5 +72,30 @@ namespace PasswordManager
             }
 
         }
+
+        public List<Website> GetAll()
+        {
+            
+            using (var db = new PasswordManagerContext())
+            {
+
+                return db.websites.ToList();
+
+            }
+
+        }
+
+        public List<Website> GetAll(int userId)
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+
+                return db.websites.Where(w => w.UserId == userId).ToList();
+
+            }
+
+        }
+
     }
 }

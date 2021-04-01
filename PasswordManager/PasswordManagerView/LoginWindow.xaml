@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top"> 
             <Button Content="Login" MinWidth="100" Click="BtnClickLoginPage"/>
-            <Button Content="Signup" MinWidth="100" Margin="10,0,0,0" Click="BtnClickSignUpPage"/>
+            <Button Content="Sign up" MinWidth="100" Margin="10,0,0,0" Click="BtnClickSignUpPage"/>
         </StackPanel>
         <Frame x:Name="MainLogin" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>

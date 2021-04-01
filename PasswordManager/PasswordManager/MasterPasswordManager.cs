@@ -19,6 +19,15 @@ namespace PasswordManager
 
         }
 
+        public MasterPassword RetrieveByUserId(int userId)
+        {
+            using (var db = new PasswordManagerContext())
+            {
+                return db.MasterPasswords.Where(mp => mp.UserId == userId).FirstOrDefault();
+            }
+
+        }
+
         public void Create(int UserId, byte[] salt, byte[] hashPassword, int iterations = 1000)
         {
 

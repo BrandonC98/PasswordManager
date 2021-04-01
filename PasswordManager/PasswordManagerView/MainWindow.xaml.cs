@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PasswordManager;
 
 namespace PasswordManagerView
 {
@@ -20,13 +21,31 @@ namespace PasswordManagerView
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public int UserId { get; set; }
+        private WebsiteManager _websiteManager;
+
+        public MainWindow(int userId)
         {
             InitializeComponent();
-            //this.contentControl.Content = new UserControl();
-            //Login login = new Login();
-            //this.Content = login;
-            //this.contentControl.Content = new Us
+            _websiteManager = new WebsiteManager();
+            UserId = userId;
+
+
+            WebsiteList.ItemsSource = _websiteManager.GetAll(UserId).Select(w => w.Name);
+
+        }
+
+        private void WebsiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnClickNew(object sender, RoutedEventArgs e)
+        {
+
+            DetailsWindow.Content = new NewEntryPage(UserId);
+
         }
     }
 }

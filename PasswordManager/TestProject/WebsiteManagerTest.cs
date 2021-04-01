@@ -112,6 +112,22 @@ namespace TestProject
         }
 
         [Test]
+        public void WhenRetrieveAllIsCalledWillReturnAllWebsites()
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+
+                var count = db.websites.Count();
+                List<Website> websites = _websiteManager.GetAll();
+
+                Assert.AreEqual(count, websites.Count());
+
+            }
+
+        }
+
+        [Test]
         public void WhenUpdatedTheDatabaseWillReflectTheChanges()
         {
 
