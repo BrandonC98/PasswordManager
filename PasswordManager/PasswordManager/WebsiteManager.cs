@@ -55,6 +55,16 @@ namespace PasswordManager
             }
         }
 
+        public Website RetrieveByUserId(int userId)
+        {
+            using (var db = new PasswordManagerContext())
+            {
+
+                return db.websites.Where(w => w.UserId == userId).FirstOrDefault();
+
+            }
+        }
+
         public void Update(int id, string websiteName = null, string encryptedPassword = null, string username = null, string url = null)
         {
 

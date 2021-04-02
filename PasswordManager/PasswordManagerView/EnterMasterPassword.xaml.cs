@@ -49,9 +49,16 @@ namespace PasswordManagerView
                 _passwordProtectable.FillDetails(key);
 
             }
+            else IncorrectPasswordLabel.Visibility = Visibility.Visible;
 
 
         }
 
+        private void BtnClickCancel(object sender, RoutedEventArgs e)
+        {
+
+            this.Visibility = Visibility.Hidden;
+
+        }
     }
 }

@@ -35,10 +35,18 @@ namespace PasswordManagerView
 
         }
 
-        public void PopulateWebsiteList() => WebsiteList.ItemsSource = _websiteManager.GetAll(UserId).Select(w => w.Name);   
+        public void PopulateWebsiteList() => WebsiteList.ItemsSource = _websiteManager.GetAll(UserId);   
 
         private void WebsiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            if(WebsiteList.SelectedItem != null)
+            {
+
+                var website = (PasswordManagerData.Website)WebsiteList.SelectedItem;
+                DetailsWindow.Content = new DetailsPage(UserId, website);
+
+            }
 
         }
 

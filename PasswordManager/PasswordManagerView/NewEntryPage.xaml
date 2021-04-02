@@ -5,23 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PasswordManagerView"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="650"
       Title="NewEntryPage">
 
     <Grid>
 
 
-        <Button Content="Create" Grid.Column="3" Margin="39,12,39,12" Grid.Row="5" Click="BtnClickCreateWebsite"/>
-        <PasswordBox x:Name="WebsitePasswordTxtBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290"/>
-        <TextBox x:Name="UsernameTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Username" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="73"/>
-        <Label Content="Password:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
-        <Label Content="Enter Name of the Website:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="152"/>
-        <TextBox x:Name="WebsiteNameTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="UrlTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Enter URL:" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="73"/>
-        <PasswordBox x:Name="MasterPasswordTxtBoxNewEntry" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="290" Margin="47,0,0,0"/>
-        <Label Content="Master Password:" Grid.Column="1" Grid.Row="5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Width="108" Margin="0,14,0,0"/>
+        <Button Content="Create" Grid.Column="2" Margin="103,26,100,26" Grid.Row="4" Click="BtnClickCreateWebsite"/>
+        <PasswordBox x:Name="WebsitePasswordTxtBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="290" Height="17"/>
+        <TextBox x:Name="UsernameTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18"/>
+        <Label Content="Username" Grid.Column="1" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="74" Height="26"/>
+        <Label Content="Password:" Grid.Column="1" Grid.Row="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Height="25"/>
+        <Label Content="Enter Name of the Website:" Grid.Column="1" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="152" Height="25"/>
+        <TextBox x:Name="WebsiteNameTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="17"/>
+        <TextBox x:Name="UrlTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18"/>
+        <Label Content="Enter URL:" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="74" Height="26"/>
 
 
 
@@ -34,11 +32,11 @@
             <RowDefinition Height="62*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="189*"/>
+            <ColumnDefinition Width="360*"/>
             <ColumnDefinition Width="43*"/>
-            <ColumnDefinition Width="95*"/>
-            <ColumnDefinition Width="44*"/>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="29*"/>
         </Grid.ColumnDefinitions>
     </Grid>
 </Page>
