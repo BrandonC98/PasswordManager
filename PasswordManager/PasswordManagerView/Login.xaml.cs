@@ -46,7 +46,6 @@ namespace PasswordManagerView
 
             if (Hash.CompareHash(hash, mp.Hash))
             {
-                MessageBox.Show("Logged in");
 
                 MainWindow main = new MainWindow(u.Id);
                 Window.Visibility = Visibility.Hidden;

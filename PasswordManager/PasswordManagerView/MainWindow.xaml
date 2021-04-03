@@ -14,6 +14,7 @@
             <Button Content="Manager" MinWidth="150" Margin="0,0,10,0" />
         </StackPanel>
         <Frame x:Name="DetailsWindow" Margin="0,35,7,0" BorderThickness="2.5" NavigationUIVisibility="Hidden" BorderBrush="#FF1B1B1B" Grid.Column="1" Grid.ColumnSpan="5"/>
+        <Button Content="Logout" Click="BtnClickLogout" MinWidth="150" Margin="0,0,0,399" Grid.Column="1"/>
 
         <Grid.RowDefinitions>
             <RowDefinition/>

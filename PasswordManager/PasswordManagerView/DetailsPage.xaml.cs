@@ -19,27 +19,65 @@ namespace PasswordManagerView
     /// <summary>
     /// Interaction logic for DetailsPage.xaml
     /// </summary>
-    public partial class DetailsPage : Page
+    public partial class DetailsPage : Page,    IPasswordProtectable
     {
 
         private int _userId;
         private WebsiteManager _websiteManager;
+        private PasswordManagerData.Website _currentWebsite;
+        private MainWindow _mainWindow;
 
-        public DetailsPage(int usderId, PasswordManagerData.Website website)
+        public DetailsPage(int userId, PasswordManagerData.Website website, string plainTextPassword, MainWindow mainWindow)
         {
+            DetailsPagePasswordShowTxtBox = new TextBox();
+            DetailsPageUrlTxtBox = new TextBox();
+            DetailsPageWebsiteNameTxtBox = new TextBox();
+            DetailsPageUsernameTxtBox = new TextBox();
+            DetailsPagePasswordShowTxtBox = new TextBox();
+
             InitializeComponent();
 
             _websiteManager = new WebsiteManager();
+            _userId = userId;
 
-            DetailsPageUrlTxtBox.Text = website.Url;
-            DetailsPageWebsiteNameTxtBox.Text = website.Name;
-            DetailsPageUsernameTxtBox.Text = website.Username;
-            DetailsPageWebsitePasswordTxtBox.Password = website.Password;
+            _currentWebsite = website;
+
+            _mainWindow = mainWindow;
+
+            PopulateDetails(plainTextPassword);
+
+        }
+
+        private void PopulateDetails(string plainTextPassword)
+        {
+
+            DetailsPagePasswordShowTxtBox.Text = plainTextPassword;
+            DetailsPageUrlTxtBox.Text = _currentWebsite.Url;
+            DetailsPageWebsiteNameTxtBox.Text = _currentWebsite.Name;
+            DetailsPageUsernameTxtBox.Text = _currentWebsite.Username;
+
 
         }
 
         private void BtnClickUpdateWebsite(object sender, RoutedEventArgs e)
         {
+
+            EnterMasterPassword masterPasswordWindow = new EnterMasterPassword(_userId, this);
+            masterPasswordWindow.Show();
+
+        }
+
+        public void FillDetails(byte [] hashKey)
+        {
+
+            var newEncryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), DetailsPagePasswordShowTxtBox.Text);
+            var newUserName = DetailsPageUsernameTxtBox.Text;
+
+            _websiteManager.Update(_currentWebsite.Id, DetailsPageWebsiteNameTxtBox.Text, newEncryptedPassword, newUserName, DetailsPageUrlTxtBox.Text);
+            _currentWebsite = _websiteManager.Retrieve(_currentWebsite.Id);
+            PopulateDetails(DetailsPagePasswordShowTxtBox.Text);
+            _mainWindow.PopulateWebsiteList();
+
 
         }
     }
