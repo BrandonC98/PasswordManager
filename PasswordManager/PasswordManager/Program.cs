@@ -23,24 +23,24 @@ namespace PasswordManager
                 var userManager = new UserManager();
                 var passwordManager = new MasterPasswordManager();
                 var websiteManager = new WebsiteManager();
-                foreach(var user in db.users)
+                foreach(var user in db.Users)
                 {
 
-                    userManager.Delete(user.Id);
+                    UserManager.Delete(user.Id);
                     
                 }
 
                 foreach (var password in db.MasterPasswords)
                 {
 
-                    passwordManager.Delete(password.Id);
+                    MasterPasswordManager.Delete(password.Id);
 
                 }
 
-                foreach (var website in db.websites)
+                foreach (var website in db.Websites)
                 {
 
-                    websiteManager.Delete(website.Id);
+                    WebsiteManager.Delete(website.Id);
 
                 }
 

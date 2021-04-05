@@ -9,7 +9,7 @@ namespace PasswordManager
 {
     public class WebsiteManager
     {
-        public void Create(int UserId, string WebsiteName, string encryptedPassword, string Username = null, string Url = null)
+        public static void Create(int UserId, string WebsiteName, string encryptedPassword, string Username = null, string Url = null)
         {
             
             using(var db = new PasswordManagerContext())
@@ -18,7 +18,7 @@ namespace PasswordManager
                 if (Username == null) Username = "Unknown";
                 if (Url == null) Url = "Unknown";
 
-                db.websites.Add(new Website()
+                db.Websites.Add(new Website()
                 {
                     UserId = UserId,
                     Name = WebsiteName,
@@ -32,46 +32,36 @@ namespace PasswordManager
 
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
             
             using(var db = new PasswordManagerContext())
             {
 
-                db.websites.RemoveRange(db.websites.Find(id));
+                db.Websites.RemoveRange(db.Websites.Find(id));
                 db.SaveChanges();
 
             }
 
         }
 
-        public Website Retrieve(int id)
+        public static Website Retrieve(int id)
         {
             using (var db = new PasswordManagerContext())
             {
 
-                return db.websites.Find(id);
+                return db.Websites.Find(id);
 
             }
         }
 
-        public Website RetrieveByUserId(int userId)
-        {
-            using (var db = new PasswordManagerContext())
-            {
-
-                return db.websites.Where(w => w.UserId == userId).FirstOrDefault();
-
-            }
-        }
-
-        public void Update(int id, string websiteName = null, string encryptedPassword = null, string username = null, string url = null)
+        public static void Update(int id, string websiteName = null, string encryptedPassword = null, string username = null, string url = null)
         {
 
             using(var db = new PasswordManagerContext())
             {
 
-                var website = db.websites.Find(id);
+                var website = db.Websites.Find(id);
 
                 if (websiteName != null) website.Name = websiteName;
                 if (encryptedPassword != null) website.Password = encryptedPassword;
@@ -83,25 +73,13 @@ namespace PasswordManager
 
         }
 
-        public List<Website> GetAll()
-        {
-            
-            using (var db = new PasswordManagerContext())
-            {
-
-                return db.websites.ToList();
-
-            }
-
-        }
-
-        public List<Website> GetAll(int userId)
+        public static List<Website> GetAll(int userId)
         {
 
             using (var db = new PasswordManagerContext())
             {
 
-                return db.websites.Where(w => w.UserId == userId).ToList();
+                return db.Websites.Where(w => w.UserId == userId).ToList();
 
             }
 

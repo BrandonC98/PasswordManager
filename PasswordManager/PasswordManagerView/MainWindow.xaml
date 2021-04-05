@@ -5,30 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManagerView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="869" Background="#FF7C7C7C">
+        Title="MainWindow" Height="450" Width="800" Background="#FF7C7C7C">
 
     <Grid>
-        <ListBox x:Name="WebsiteList" Margin="0,35,0,0" SelectionChanged="WebsiteList_SelectionChanged" BorderThickness="2.5" Background="#FF9E9E9E" BorderBrush="Black"/>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-            <Button Content="New Entry" MinWidth="150" Click="BtnClickNew" Margin="0,0,0,0"/>
-            <Button Content="Manager" MinWidth="150" Margin="0,0,10,0" />
+            <Button Content="New Entry" MinWidth="100" Click="BtnClickNew" Margin="0,0,0,0"/>
+            <Button Content="Logout" Click="BtnClickLogout" MinHeight="35" MinWidth="100" Margin="0,0,0,0"/>
         </StackPanel>
-        <Frame x:Name="DetailsWindow" Margin="0,35,7,0" BorderThickness="2.5" NavigationUIVisibility="Hidden" BorderBrush="#FF1B1B1B" Grid.Column="1" Grid.ColumnSpan="5"/>
-        <Button Content="Logout" Click="BtnClickLogout" MinWidth="150" Margin="0,0,0,399" Grid.Column="1"/>
-
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="126"/>
-            <ColumnDefinition Width="0"/>
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="397*"/>
+                <RowDefinition Height="0*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="700"/>
+                <ColumnDefinition Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Frame x:Name="DetailsWindow" Margin="0,35,0,0" MinWidth="70" BorderThickness="2.5" NavigationUIVisibility="Hidden" BorderBrush="#FF1B1B1B" Grid.Column="2" Grid.RowSpan="2" />
+            <ListBox x:Name="WebsiteList" Margin="0,35,0,0" MinWidth="100" SelectionChanged="WebsiteList_SelectionChanged" BorderThickness="2.5" Background="#FF9E9E9E" BorderBrush="Black" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        </Grid>
 
     </Grid>
 </Window>

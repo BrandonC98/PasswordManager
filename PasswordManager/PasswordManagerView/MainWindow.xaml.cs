@@ -36,7 +36,7 @@ namespace PasswordManagerView
 
         }
 
-        public void PopulateWebsiteList() => WebsiteList.ItemsSource = _websiteManager.GetAll(UserId);   
+        public void PopulateWebsiteList() => WebsiteList.ItemsSource = WebsiteManager.GetAll(UserId);   
 
         private void WebsiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -58,9 +58,9 @@ namespace PasswordManagerView
 
         }
 
-        public void FillDetails(byte[] hashKey)
+        public void OnPasswordConfirmation(byte[] hashKey)
         {
-            var encrpytedPassword = _websiteManager.Retrieve(_currentWebsite.Id).Password;
+            var encrpytedPassword = WebsiteManager.Retrieve(_currentWebsite.Id).Password;
             var plainTextPassword = SymmetricEncryption.Decrypt(Convert.ToBase64String(hashKey), encrpytedPassword);
             var website = (PasswordManagerData.Website)WebsiteList.SelectedItem;
             DetailsWindow.Content = new DetailsPage(UserId, website, plainTextPassword, this);
@@ -76,5 +76,6 @@ namespace PasswordManagerView
 
 
         }
+
     }
 }

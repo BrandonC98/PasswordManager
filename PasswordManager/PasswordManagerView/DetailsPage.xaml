@@ -19,6 +19,7 @@
         <TextBox x:Name="DetailsPageUrlTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18"/>
         <Label Content="URL" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="38" Height="26"/>
         <TextBox x:Name="DetailsPagePasswordShowTxtBox" TextWrapping="Wrap" Width="290" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18"/>
+        <Button Content="Delete" Grid.Row="4" Click="BtnClickDeleteWebsite" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="74" Height="38"/>
 
 
 

@@ -33,11 +33,15 @@ namespace PasswordManagerView
         private void BtnClickCreate(object sender, RoutedEventArgs e)
         {
 
+            if(!EmailTxtBox.Text.Contains("@"))
+            {
 
-            var userManager = new UserManager();
-            var mPasswordManager = new MasterPasswordManager();
+                MessageBox.Show("Error: not a proper Email addresss");
+                return;
+
+            }
             
-            if(userManager.Exist(EmailTxtBox.Text))
+            if(UserManager.Exist(EmailTxtBox.Text))
             {
 
                 MessageBox.Show("This Email Address already has an account");
@@ -47,12 +51,12 @@ namespace PasswordManagerView
 
             if (ConfirmPasswordTxtBox.Password != PasswordTxtBox.Password) return;
 
-            userManager.Create(FirstNameTxtBox.Text, LastNameTxtBox.Text, EmailTxtBox.Text);
+            UserManager.Create(FirstNameTxtBox.Text, LastNameTxtBox.Text, EmailTxtBox.Text);
             var salt = Hash.GenerateSalt(20);
             var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), salt, 1000, 16);
-            mPasswordManager.Create(userManager.Retrieve(EmailTxtBox.Text).Id, salt, hash);
+            MasterPasswordManager.Create(UserManager.Retrieve(EmailTxtBox.Text).Id, salt, hash);
             MessageBox.Show("Account Created");
-            Window.MainLogin.Content = new Login() { Window = Window };
+            Window.MainLogin.Content = new Login(Window);
             
         }
     }

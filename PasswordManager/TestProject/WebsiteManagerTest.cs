@@ -13,45 +13,42 @@ namespace TestProject
     {
 
         private User _testUser;
-        private MasterPassword _testMPassword;
         private Website _testWebsite;
-        string encryptedPassword;
-        private WebsiteManager _websiteManager;
+        string _encryptedPassword;
 
         [SetUp]
         public void Setup()
         {
 
-            _websiteManager = new WebsiteManager();
 
             using(var db = new PasswordManagerContext())
             {
 
                 var selectedUser =
-                    from u in db.users
+                    from u in db.Users
                     where u.EmailAddress == "UnitTest@Testing.co.uk"
                     select u;
 
-                db.users.RemoveRange(selectedUser);
+                db.Users.RemoveRange(selectedUser);
                 db.SaveChanges();
 
-                db.users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
+                db.Users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
                 db.SaveChanges();
 
-                _testUser = db.users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
+                _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
 
                 var salt = Hash.GenerateSalt(20);
                 var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("Password123"), salt, 1000, 16);
 
-                db.MasterPasswords.Add(new MasterPassword() { Hash = hashPassword, Salt = salt, Iterations = 1000, User = _testUser });
+                db.MasterPasswords.Add(new MasterPassword() { Hash = hashPassword, Salt = salt, Iterations = 1000, UserId = _testUser.Id });
                 db.SaveChanges();
-                _testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
+                var testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
 
-                encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashPassword), "YouTubePassword1");
+                _encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashPassword), "YouTubePassword1");
 
-                db.websites.Add(new Website() { Name = "YouTube", Username = "Username1", Password = encryptedPassword, Url = $"https://www.youtube.com/", UserId = _testUser.Id });
+                db.Websites.Add(new Website() { Name = "YouTube", Username = "Username1", Password = _encryptedPassword, Url = $"https://www.youtube.com/", UserId = _testUser.Id });
                 db.SaveChanges();
-                _testWebsite = db.websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault();
+                _testWebsite = db.Websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault();
 
 
 
@@ -65,16 +62,16 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-                var website = db.websites.Find(_testWebsite.Id);
-                db.websites.RemoveRange(website);
+                var website = db.Websites.Find(_testWebsite.Id);
+                db.Websites.RemoveRange(website);
                 db.SaveChanges();
 
-                var numberOfWebsitesBefore = db.websites.Count();
-                _websiteManager.Create(_testUser.Id, "Google", encryptedPassword, "Username1", $"https://www.youtube.com/");
-                var numberOfWebsitesAfter = db.websites.Count();
+                var numberOfWebsitesBefore = db.Websites.Count();
+                WebsiteManager.Create(_testUser.Id, "Google", _encryptedPassword, "Username1", $"https://www.youtube.com/");
+                var numberOfWebsitesAfter = db.Websites.Count();
 
                 Assert.AreEqual(numberOfWebsitesBefore + 1, numberOfWebsitesAfter);
-                _testWebsite = db.websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault();
+                _testWebsite = db.Websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault();
             }
 
         }
@@ -86,9 +83,9 @@ namespace TestProject
             using (var db = new PasswordManagerContext())
             {
 
-                var numberOfWebsitesBefore = db.websites.Count();
-                _websiteManager.Delete(_testWebsite.Id);
-                var numberOfWebsitesAfter = db.websites.Count();
+                var numberOfWebsitesBefore = db.Websites.Count();
+                WebsiteManager.Delete(_testWebsite.Id);
+                var numberOfWebsitesAfter = db.Websites.Count();
 
                 Assert.AreEqual(numberOfWebsitesBefore - 1, numberOfWebsitesAfter);
             }
@@ -102,8 +99,8 @@ namespace TestProject
             using(var db = new PasswordManagerContext())
             {
 
-                var expectedWebsite = db.websites.Find(_testWebsite.Id);
-                var website = _websiteManager.Retrieve(_testWebsite.Id);
+                var expectedWebsite = db.Websites.Find(_testWebsite.Id);
+                var website = WebsiteManager.Retrieve(_testWebsite.Id);
 
                 Assert.AreEqual(expectedWebsite.Id, website.Id);
 
@@ -112,14 +109,14 @@ namespace TestProject
         }
 
         [Test]
-        public void WhenRetrieveAllIsCalledWillReturnAllWebsites()
+        public void WhenRetrieveAllIsCalledWillReturnAllWebsitesForThatUser()
         {
 
             using (var db = new PasswordManagerContext())
             {
 
-                var count = db.websites.Count();
-                List<Website> websites = _websiteManager.GetAll();
+                var count = db.Websites.Count(u => u.UserId == _testUser.Id);
+                List<Website> websites = WebsiteManager.GetAll(_testUser.Id);
 
                 Assert.AreEqual(count, websites.Count());
 
@@ -135,9 +132,9 @@ namespace TestProject
             {
 
                 var expectedUsername = "NewUsername";
-                _websiteManager.Update(_testWebsite.Id, username:expectedUsername);
+                WebsiteManager.Update(_testWebsite.Id, username:expectedUsername);
 
-                Assert.AreEqual(expectedUsername, db.websites.Find(_testWebsite.Id).Username);
+                Assert.AreEqual(expectedUsername, db.Websites.Find(_testWebsite.Id).Username);
 
             }
 
@@ -153,17 +150,17 @@ namespace TestProject
                 db.MasterPasswords.RemoveRange(db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault());
                 db.SaveChanges();
 
-                if(db.websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault() != null)
+                if(db.Websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault() != null)
                 {
 
-                    db.websites.RemoveRange(db.websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault());
+                    db.Websites.RemoveRange(db.Websites.Where(w => w.UserId == _testUser.Id).FirstOrDefault());
                     db.SaveChanges();
 
 
                 }
 
-                var user = db.users.Find(_testUser.Id);
-                db.users.RemoveRange(user);
+                var user = db.Users.Find(_testUser.Id);
+                db.Users.RemoveRange(user);
                 db.SaveChanges();
 
 

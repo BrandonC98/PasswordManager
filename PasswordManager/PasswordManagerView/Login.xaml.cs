@@ -22,10 +22,11 @@ namespace PasswordManagerView
     public partial class Login : Page
     {
 
-        public LoginWindow Window { get; set; }
+        private LoginWindow _window;
 
-        public Login()
+        public Login(LoginWindow window)
         {
+            _window = window;
             InitializeComponent();
 
         }
@@ -33,22 +34,24 @@ namespace PasswordManagerView
         private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
 
-            var userManager = new UserManager();
-            var mPasswordManager = new MasterPasswordManager();
+            var user = UserManager.Retrieve(EmailTxtBox.Text);
 
-            var u = userManager.Retrieve(EmailTxtBox.Text);
+            if (user == null)
+            {
+                MessageBox.Show("No Account exists with this email");
+                return;
 
-            if (u == null) return;
+            }
 
-            var mp = mPasswordManager.RetrieveByUserId(u.Id);
+            var mPassword = MasterPasswordManager.RetrieveByUserId(user.Id);
 
-            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), mp.Salt, mp.Iterations, 16);
+            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), mPassword.Salt, mPassword.Iterations, 16);
 
-            if (Hash.CompareHash(hash, mp.Hash))
+            if (Hash.CompareHash(hash, mPassword.Hash))
             {
 
-                MainWindow main = new MainWindow(u.Id);
-                Window.Visibility = Visibility.Hidden;
+                MainWindow main = new MainWindow(user.Id);
+                _window.Visibility = Visibility.Hidden;
                 main.Show();
 
             }

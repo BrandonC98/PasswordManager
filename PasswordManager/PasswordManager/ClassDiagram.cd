@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PasswordManager.Hash" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAQAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PasswordManager.MasterPasswordManager" Collapsed="true">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>MasterPasswordManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PasswordManager.SymmetricEncryption" Collapsed="true">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SymmetricEncryption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PasswordManager.UserManager" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>UserManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PasswordManager.WebsiteManager" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>WebsiteManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

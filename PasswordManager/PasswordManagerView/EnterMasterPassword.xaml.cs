@@ -22,7 +22,6 @@ namespace PasswordManagerView
     {
 
         private int _userId;
-        MasterPasswordManager _masterPasswordManager;
         IPasswordProtectable _passwordProtectable;
         
 
@@ -30,7 +29,6 @@ namespace PasswordManagerView
         {
             InitializeComponent();
             _userId = userId;
-            _masterPasswordManager = new MasterPasswordManager();
             _passwordProtectable = passwordProtectable;
             IncorrectPasswordLabel.Visibility = Visibility.Hidden;
         }
@@ -38,7 +36,7 @@ namespace PasswordManagerView
         private void BtnClickContinue(object sender, RoutedEventArgs e)
         {
 
-            var masterPassword = _masterPasswordManager.RetrieveByUserId(_userId);
+            var masterPassword = MasterPasswordManager.RetrieveByUserId(_userId);
 
             var key = Hash.GenerateHash(Encoding.ASCII.GetBytes(MPasswordTxtBox.Password), masterPassword.Salt, masterPassword.Iterations, 16);
 
@@ -46,7 +44,7 @@ namespace PasswordManagerView
             {
 
                 this.Visibility = Visibility.Hidden;
-                _passwordProtectable.FillDetails(key);
+                _passwordProtectable.OnPasswordConfirmation(key);
 
             }
             else IncorrectPasswordLabel.Visibility = Visibility.Visible;
@@ -54,11 +52,8 @@ namespace PasswordManagerView
 
         }
 
-        private void BtnClickCancel(object sender, RoutedEventArgs e)
-        {
+        private void BtnClickCancel(object sender, RoutedEventArgs e) => this.Visibility = Visibility.Hidden;
 
-            this.Visibility = Visibility.Hidden;
-
-        }
+        
     }
 }

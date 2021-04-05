@@ -19,55 +19,6 @@ namespace PasswordManagerData.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PasswordManagerData.AccessHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AccessHistories");
-                });
-
-            modelBuilder.Entity("PasswordManagerData.Blacklist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Blacklists");
-                });
-
             modelBuilder.Entity("PasswordManagerData.MasterPassword", b =>
                 {
                     b.Property<int>("Id")
@@ -113,7 +64,7 @@ namespace PasswordManagerData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PasswordManagerData.Website", b =>
@@ -142,59 +93,29 @@ namespace PasswordManagerData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("websites");
-                });
-
-            modelBuilder.Entity("PasswordManagerData.AccessHistory", b =>
-                {
-                    b.HasOne("PasswordManagerData.User", "User")
-                        .WithMany("AccessHistories")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PasswordManagerData.Blacklist", b =>
-                {
-                    b.HasOne("PasswordManagerData.User", "User")
-                        .WithMany("Blacklists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.ToTable("Websites");
                 });
 
             modelBuilder.Entity("PasswordManagerData.MasterPassword", b =>
                 {
-                    b.HasOne("PasswordManagerData.User", "User")
+                    b.HasOne("PasswordManagerData.User", null)
                         .WithOne("MasterPassword")
                         .HasForeignKey("PasswordManagerData.MasterPassword", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PasswordManagerData.Website", b =>
                 {
-                    b.HasOne("PasswordManagerData.User", "User")
+                    b.HasOne("PasswordManagerData.User", null)
                         .WithMany("Websites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PasswordManagerData.User", b =>
                 {
-                    b.Navigation("AccessHistories");
-
-                    b.Navigation("Blacklists");
-
                     b.Navigation("MasterPassword");
 
                     b.Navigation("Websites");

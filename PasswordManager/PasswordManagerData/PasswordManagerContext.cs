@@ -10,10 +10,8 @@ namespace PasswordManagerData
     public class PasswordManagerContext :   DbContext
     {
 
-        public DbSet<Website> websites { get; set; }
-        public DbSet<User> users { get; set; }
-        public DbSet<AccessHistory> AccessHistories { get; set; }
-        public DbSet<Blacklist> Blacklists { get; set; }
+        public DbSet<Website> Websites { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<MasterPassword> MasterPasswords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

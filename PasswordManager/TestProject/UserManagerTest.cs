@@ -12,28 +12,26 @@ namespace TestProject
     class UserManagerTest
     {
 
-        private UserManager _userManager;
-        private User testUser;
+        private User _testUser;
 
         [SetUp]
         public void Setup()
         {
-            _userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var selectedUser =
-                from u in db.users
+                from u in db.Users
                 where u.EmailAddress == "UnitTest@Testing.co.uk"
                 select u;
 
-                db.users.RemoveRange(selectedUser);
+                db.Users.RemoveRange(selectedUser);
                 db.SaveChanges();
 
-                db.users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
+                db.Users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
                 db.SaveChanges();
 
-                testUser = db.users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
+                _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
 
             }
         }
@@ -42,12 +40,12 @@ namespace TestProject
         public void WhenAUserIsDeletedTheDatabaseIsUpdated()
         {
 
-            using(var db = new PasswordManagerContext())
+            using (var db = new PasswordManagerContext())
             {
 
-                var numberOfUsersBefore = db.users.Count();
-                _userManager.Delete(testUser.Id);
-                var numberOfUsersAfter = db.users.Count();
+                var numberOfUsersBefore = db.Users.Count();
+                UserManager.Delete(_testUser.Id);
+                var numberOfUsersAfter = db.Users.Count();
 
                 Assert.AreEqual(numberOfUsersBefore - 1, numberOfUsersAfter);
 
@@ -61,9 +59,9 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-                var numberOfUsersBefore = db.users.Count();
-                _userManager.Create("Brandon", "Campbell", "MyEmail@Emails.com");
-                var numberOfUsersAfter = db.users.Count();
+                var numberOfUsersBefore = db.Users.Count();
+                UserManager.Create("Brandon", "Campbell", "MyEmail@Emails.com");
+                var numberOfUsersAfter = db.Users.Count();
 
                 Assert.AreEqual(numberOfUsersBefore + 1, numberOfUsersAfter);
 
@@ -77,10 +75,40 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-                var expectedUser = db.users.Find(testUser.Id);
-                var user = _userManager.Retrieve(testUser.Id);
+                var expectedUser = db.Users.Find(_testUser.Id);
+                var user = UserManager.Retrieve(_testUser.Id);
 
                 Assert.AreEqual(expectedUser.Id, user.Id);
+
+            }
+
+        }
+
+        [Test]
+        public void WhenAUserIsRetrivedByEmailItIsTheCorrectUser()
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+                var expectedUser = db.Users.Find(_testUser.Id);
+                var user = UserManager.Retrieve(_testUser.EmailAddress);
+
+                Assert.AreEqual(expectedUser.Id, user.Id);
+
+            }
+
+        }
+
+        [Test]
+        public void WhenCheckedToSeeIfAUserExistsItsAlwayCorrect()
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+                var expectedUser = db.Users.Find(_testUser.Id);
+                var answer = UserManager.Exist(_testUser.EmailAddress);
+
+                Assert.AreEqual(true, answer);
 
             }
 
@@ -92,8 +120,8 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-                _userManager.Update(testUser.Id, newLastName: "Smith");
-                Assert.AreEqual("Smith", db.users.Find(testUser.Id).LastName);
+                UserManager.Update(_testUser.Id, newLastName: "Smith");
+                Assert.AreEqual("Smith", db.Users.Find(_testUser.Id).LastName);
 
             }
         }
@@ -104,14 +132,14 @@ namespace TestProject
             using (var db = new PasswordManagerContext())
             {
                 var selectedUser =
-                from u in db.users
+                from u in db.Users
                 where u.EmailAddress == "UnitTest@Testing.co.uk"
                 select u;
 
-                db.users.RemoveRange(selectedUser);
+                db.Users.RemoveRange(selectedUser);
                 db.SaveChanges();
 
-                db.users.RemoveRange(db.users.Where(u => u.EmailAddress == "MyEmail@Emails.com"));
+                db.Users.RemoveRange(db.Users.Where(u => u.EmailAddress == "MyEmail@Emails.com"));
                 db.SaveChanges();
 
             }

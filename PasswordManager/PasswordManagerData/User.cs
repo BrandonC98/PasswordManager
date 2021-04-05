@@ -13,8 +13,6 @@ namespace PasswordManagerData
         public User()
         {
             Websites = new HashSet<Website>();
-            AccessHistories = new HashSet<AccessHistory>();
-            Blacklists = new HashSet<Blacklist>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,8 +22,6 @@ namespace PasswordManagerData
         public string EmailAddress { get; set; }
         public virtual MasterPassword MasterPassword { get; set; }
         public virtual ICollection<Website> Websites { get; set; }
-        public virtual ICollection<AccessHistory> AccessHistories { get; set; }
-        public virtual ICollection<Blacklist> Blacklists { get; set; } 
 
     }
 }

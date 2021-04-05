@@ -10,7 +10,7 @@ namespace PasswordManager
     public class UserManager
     {
 
-        public void Create(string firstName, string lastName, string email)
+        public static void Create(string firstName, string lastName, string email)
         {
 
             using(var db = new PasswordManagerContext())
@@ -32,62 +32,62 @@ namespace PasswordManager
 
         }
 
-        public User Retrieve(int id)
+        public static User Retrieve(int id)
         {
 
             using (var db = new PasswordManagerContext())
             {
 
-                return db.users.Find(id);
+                return db.Users.Find(id);
             }
 
         }
 
-        public bool Exist(string email)
+        public static bool Exist(string email)
         {
 
 
             using(var db = new PasswordManagerContext())
             {
 
-                if (db.users.Any(u => u.EmailAddress == email)) return true;
+                if (db.Users.Any(u => u.EmailAddress == email)) return true;
                 else return false;
 
             }
 
         }
 
-        public User Retrieve(string email)
+        public static User Retrieve(string email)
         {
 
             using (var db = new PasswordManagerContext())
             {
 
-                return db.users.Where(u => u.EmailAddress == email).FirstOrDefault();
+                return db.Users.Where(u => u.EmailAddress == email).FirstOrDefault();
             }
 
         }
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
 
             using (var db = new PasswordManagerContext())
             {
 
-                db.RemoveRange(db.users.Find(id));
+                db.RemoveRange(db.Users.Find(id));
                 db.SaveChanges();
 
             }
 
         }
 
-        public void Update(int id, string newFirstName = null, string newLastName = null, string newEmailAddress = null)
+        public static void Update(int id, string newFirstName = null, string newLastName = null, string newEmailAddress = null)
         {
 
             using(var db = new PasswordManagerContext())
             {
 
-                var user = db.users.Find(id);
+                var user = db.Users.Find(id);
                 if (newFirstName != null) user.FirstName = newFirstName;
                 if (newLastName != null) user.LastName = newLastName;
                 if (newEmailAddress != null) user.EmailAddress = newEmailAddress;

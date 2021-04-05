@@ -9,7 +9,7 @@ namespace PasswordManagerView
     public interface IPasswordProtectable
     {
 
-        public void FillDetails(byte[] hashKey);
+        public void OnPasswordConfirmation(byte[] hashKey);
 
     }
 }

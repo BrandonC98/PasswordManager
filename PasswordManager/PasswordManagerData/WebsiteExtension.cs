@@ -10,10 +10,8 @@ namespace PasswordManagerData
     public partial class Website
     {
 
-        public override string ToString()
-        {
-            return this.Name;
-        }
+        public override string ToString() => this.Name;
+        
 
     }
 }

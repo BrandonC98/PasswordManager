@@ -7,11 +7,6 @@ namespace TestProject
 {
     public class HashTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         
         [TestCase("Password123", "Password1234", false)]
         [TestCase("Password123", "Password12", false)]
@@ -53,19 +48,6 @@ namespace TestProject
             var salt = Hash.GenerateSalt(20);
             var hashedPassword1 = Hash.GenerateHash(Encoding.ASCII.GetBytes(password), salt, 10000, hashLength1);
             var hashedPassword2 = Hash.GenerateHash(Encoding.ASCII.GetBytes(password), salt, 10000, hashLength2);
-
-            Assert.AreEqual(expected, Hash.CompareHash(hashedPassword1, hashedPassword2));
-
-        }
-
-
-        [TestCase("Password123", "password123_", 20, 10000, false)]
-        public void tesy(string password1, string password2, int saltLength, int interations, bool expected)
-        {
-
-            var salt = Hash.GenerateSalt(saltLength);
-            var hashedPassword1 = Hash.GenerateHash(Encoding.ASCII.GetBytes(password1), salt, interations, 10);
-            var hashedPassword2 = Hash.GenerateHash(Encoding.ASCII.GetBytes(password2), salt, interations, 10);
 
             Assert.AreEqual(expected, Hash.CompareHash(hashedPassword1, hashedPassword2));
 

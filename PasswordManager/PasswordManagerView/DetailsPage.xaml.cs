@@ -23,7 +23,6 @@ namespace PasswordManagerView
     {
 
         private int _userId;
-        private WebsiteManager _websiteManager;
         private PasswordManagerData.Website _currentWebsite;
         private MainWindow _mainWindow;
 
@@ -37,11 +36,8 @@ namespace PasswordManagerView
 
             InitializeComponent();
 
-            _websiteManager = new WebsiteManager();
             _userId = userId;
-
             _currentWebsite = website;
-
             _mainWindow = mainWindow;
 
             PopulateDetails(plainTextPassword);
@@ -67,17 +63,25 @@ namespace PasswordManagerView
 
         }
 
-        public void FillDetails(byte [] hashKey)
+        public void OnPasswordConfirmation(byte [] hashKey)
         {
 
             var newEncryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), DetailsPagePasswordShowTxtBox.Text);
             var newUserName = DetailsPageUsernameTxtBox.Text;
 
-            _websiteManager.Update(_currentWebsite.Id, DetailsPageWebsiteNameTxtBox.Text, newEncryptedPassword, newUserName, DetailsPageUrlTxtBox.Text);
-            _currentWebsite = _websiteManager.Retrieve(_currentWebsite.Id);
+            WebsiteManager.Update(_currentWebsite.Id, DetailsPageWebsiteNameTxtBox.Text, newEncryptedPassword, newUserName, DetailsPageUrlTxtBox.Text);
+            _currentWebsite = WebsiteManager.Retrieve(_currentWebsite.Id);
             PopulateDetails(DetailsPagePasswordShowTxtBox.Text);
             _mainWindow.PopulateWebsiteList();
 
+        }
+
+        private void BtnClickDeleteWebsite(object sender, RoutedEventArgs e)
+        {
+
+            WebsiteManager.Delete(_currentWebsite.Id);
+            _mainWindow.PopulateWebsiteList();
+            _mainWindow.DetailsWindow.Content = new BlankPage();
 
         }
     }

@@ -24,18 +24,15 @@ namespace PasswordManagerView
 
         public int UserId { get; set; }
 
-        WebsiteManager _websiteManager;
-        MasterPasswordManager _masterPasswordManager;
-        MainWindow mainWindow;
+
+        private MainWindow _mainWindow;
 
 
         public NewEntryPage(int userId, MainWindow window)
         {
             InitializeComponent();
             UserId = userId;
-            mainWindow = window;
-            _websiteManager = new WebsiteManager();
-            _masterPasswordManager = new MasterPasswordManager();
+            _mainWindow = window;
 
         }
 
@@ -49,13 +46,14 @@ namespace PasswordManagerView
 
         }
 
-        public void FillDetails(byte[] hashKey)
+        public void OnPasswordConfirmation(byte[] hashKey)
         {
 
             var encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), WebsitePasswordTxtBox.Password);
 
-            _websiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
-            mainWindow.PopulateWebsiteList();
+            WebsiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
+            _mainWindow.PopulateWebsiteList();
+            _mainWindow.DetailsWindow.Content = new BlankPage();
 
 
         }

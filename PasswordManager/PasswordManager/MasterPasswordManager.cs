@@ -10,7 +10,7 @@ namespace PasswordManager
     public class MasterPasswordManager
     {
 
-        public MasterPassword Retrieve(int id)
+        public static MasterPassword Retrieve(int id)
         {
             using (var db = new PasswordManagerContext())
             {
@@ -19,7 +19,7 @@ namespace PasswordManager
 
         }
 
-        public MasterPassword RetrieveByUserId(int userId)
+        public static MasterPassword RetrieveByUserId(int userId)
         {
             using (var db = new PasswordManagerContext())
             {
@@ -28,7 +28,7 @@ namespace PasswordManager
 
         }
 
-        public void Create(int UserId, byte[] salt, byte[] hashPassword, int iterations = 1000)
+        public static void Create(int UserId, byte[] salt, byte[] hashPassword, int iterations = 1000)
         {
 
             using (var db = new PasswordManagerContext())
@@ -48,7 +48,7 @@ namespace PasswordManager
 
         } 
 
-        public void Delete(int id)
+        public static void Delete(int id)
         {
 
             using (var db = new PasswordManagerContext())
@@ -61,7 +61,7 @@ namespace PasswordManager
 
         }
 
-        public void Update(int id, byte[] hash, byte[] salt, int iteration = 1000)
+        public static void Update(int id, byte[] hash, byte[] salt, int iteration = 1000)
         {
             
             using (var db = new PasswordManagerContext())
