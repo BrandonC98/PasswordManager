@@ -73,6 +73,20 @@ namespace PasswordManager
 
         }
 
+        public static string DecryptPasswordForWebsite(int websiteId, byte[] key)
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+
+                var encryptedPassword = db.Websites.Find(websiteId).Password;
+                return SymmetricEncryption.Decrypt(Convert.ToBase64String(key), encryptedPassword);
+
+
+            }
+
+        }
+
         public static List<Website> GetAll(int userId)
         {
 

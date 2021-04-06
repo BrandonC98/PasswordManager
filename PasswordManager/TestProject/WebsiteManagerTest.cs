@@ -14,7 +14,8 @@ namespace TestProject
 
         private User _testUser;
         private Website _testWebsite;
-        string _encryptedPassword;
+        private string _encryptedPassword;
+        private int _masterPasswordId;
 
         [SetUp]
         public void Setup()
@@ -43,6 +44,7 @@ namespace TestProject
                 db.MasterPasswords.Add(new MasterPassword() { Hash = hashPassword, Salt = salt, Iterations = 1000, UserId = _testUser.Id });
                 db.SaveChanges();
                 var testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
+                _masterPasswordId = testMPassword.Id;
 
                 _encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashPassword), "YouTubePassword1");
 
@@ -53,6 +55,20 @@ namespace TestProject
 
 
             };
+
+        }
+
+        [Test]
+        public void WhenCalledTheDecryptPasswordForWebsiteFunctionWillReturnTheRightString()
+        {
+
+            using (var db = new PasswordManagerContext())
+            {
+                
+                var actual = WebsiteManager.DecryptPasswordForWebsite(_testWebsite.Id, MasterPasswordManager.Retrieve(_masterPasswordId).Hash);
+                Assert.AreEqual("YouTubePassword1", actual);
+
+            }
 
         }
 
