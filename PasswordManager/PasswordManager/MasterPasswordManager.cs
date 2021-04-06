@@ -28,15 +28,19 @@ namespace PasswordManager
 
         }
 
-        public static void Create(int UserId, byte[] salt, byte[] hashPassword, int iterations = 1000)
+        public static void Create(int UserId, string password)
         {
 
             using (var db = new PasswordManagerContext())
             {
 
+                var iterations = 1000;
+                var salt = Hash.GenerateSalt(20);
+                var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(password), salt, iterations, 16);
+
                 db.MasterPasswords.Add(new MasterPassword() 
                 {
-                    Hash = hashPassword,
+                    Hash = hash,
                     Salt = salt,
                     Iterations = iterations,
                     UserId = UserId

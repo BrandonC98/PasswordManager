@@ -52,9 +52,7 @@ namespace PasswordManagerView
             if (ConfirmPasswordTxtBox.Password != PasswordTxtBox.Password) return;
 
             UserManager.Create(FirstNameTxtBox.Text, LastNameTxtBox.Text, EmailTxtBox.Text);
-            var salt = Hash.GenerateSalt(20);
-            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), salt, 1000, 16);
-            MasterPasswordManager.Create(UserManager.Retrieve(EmailTxtBox.Text).Id, salt, hash);
+            MasterPasswordManager.Create(UserManager.Retrieve(EmailTxtBox.Text).Id, PasswordTxtBox.Password);
             MessageBox.Show("Account Created");
             Window.MainLogin.Content = new Login(Window);
             

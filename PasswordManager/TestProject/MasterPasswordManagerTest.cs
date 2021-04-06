@@ -86,10 +86,8 @@ namespace TestProject
             {
                 db.MasterPasswords.RemoveRange(db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id));
                 db.SaveChanges();
-                var salt = Hash.GenerateSalt(20);
-                var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("ThisIsAStrongPassword123"), salt, 1000, 16);
                 var numberOfUsersBefore = db.MasterPasswords.Count();
-                MasterPasswordManager.Create(_testUser.Id, salt, hashPassword, 1000);
+                MasterPasswordManager.Create(_testUser.Id, "ThisIsAStrongPassword123");
                 var numberOfUsersAfter = db.MasterPasswords.Count();
 
                 Assert.AreEqual(numberOfUsersBefore + 1, numberOfUsersAfter);
