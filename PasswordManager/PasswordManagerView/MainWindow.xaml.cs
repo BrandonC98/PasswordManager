@@ -60,8 +60,8 @@ namespace PasswordManagerView
 
         public void OnPasswordConfirmation(byte[] hashKey)
         {
-            var encrpytedPassword = WebsiteManager.Retrieve(_currentWebsite.Id).Password;
-            var plainTextPassword = SymmetricEncryption.Decrypt(Convert.ToBase64String(hashKey), encrpytedPassword);
+
+            var plainTextPassword = WebsiteManager.DecryptPasswordForWebsite(_currentWebsite.Id, hashKey);
             var website = (PasswordManagerData.Website)WebsiteList.SelectedItem;
             DetailsWindow.Content = new DetailsPage(UserId, website, plainTextPassword, this);
             
@@ -77,5 +77,11 @@ namespace PasswordManagerView
 
         }
 
+        private void BtnClickSettingsPage(object sender, RoutedEventArgs e)
+        {
+
+            DetailsWindow.Content = new AccountPage(UserId);
+
+        }
     }
 }

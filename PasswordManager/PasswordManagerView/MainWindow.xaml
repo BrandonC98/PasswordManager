@@ -10,7 +10,8 @@
     <Grid>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
             <Button Content="New Entry" MinWidth="100" Click="BtnClickNew" Margin="0,0,0,0"/>
-            <Button Content="Logout" Click="BtnClickLogout" MinHeight="35" MinWidth="100" Margin="0,0,0,0"/>
+            <Button Content="Settings" MinWidth="100" Margin="10,0,0,0" Click="BtnClickSettingsPage"/>
+            <Button Content="Logout" Click="BtnClickLogout" MinHeight="35" MinWidth="100" Margin="10,0,0,0"/>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

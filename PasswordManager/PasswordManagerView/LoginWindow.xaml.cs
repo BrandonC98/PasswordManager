@@ -35,5 +35,7 @@ namespace PasswordManagerView
         {
             MainLogin.Content = new SignUp() { Window = this};
         }
+
+
     }
 }
