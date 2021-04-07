@@ -19,6 +19,17 @@ namespace PasswordManager
 
         }
 
+        public static bool CompareHash(byte[] newPassword, int userId)
+        {
+
+            var masterPassword = RetrieveByUserId(userId);
+
+            var key = Hash.GenerateHash(newPassword, masterPassword.Salt, masterPassword.Iterations, 16);
+
+            return Hash.CompareHash(key, masterPassword.Hash);
+
+        }
+
         public static bool CompareHash(byte[] newPassword, int userId, out byte[] key)
         {
 

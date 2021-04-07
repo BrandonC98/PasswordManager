@@ -35,20 +35,17 @@ namespace PasswordManagerView
         {
 
 
-            var user = UserManager.Retrieve(EmailTxtBox.Text);
 
-            if (user == null)
+            if (UserManager.Exist(EmailTxtBox.Text))
             {
                 MessageBox.Show("No Account exists with this email");
                 return;
 
             }
+            
+            var user = UserManager.Retrieve(EmailTxtBox.Text);
 
-            var mPassword = MasterPasswordManager.RetrieveByUserId(user.Id);
-
-            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), mPassword.Salt, mPassword.Iterations, 16);
-
-            if (Hash.CompareHash(hash, mPassword.Hash))
+            if (MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), user.Id))
             {
 
                 MainWindow main = new MainWindow(user.Id);

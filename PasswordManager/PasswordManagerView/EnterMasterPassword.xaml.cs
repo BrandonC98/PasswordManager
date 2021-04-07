@@ -36,11 +36,6 @@ namespace PasswordManagerView
         private void BtnClickContinue(object sender, RoutedEventArgs e)
         {
 
-            //var masterPassword = MasterPasswordManager.RetrieveByUserId(_userId);
-
-            //var key = Hash.GenerateHash(Encoding.ASCII.GetBytes(MPasswordTxtBox.Password), masterPassword.Salt, masterPassword.Iterations, 16);
-
-            //if (Hash.CompareHash(key, masterPassword.Hash))
             if(MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(MPasswordTxtBox.Password), _userId, out byte[] key))
             {
 

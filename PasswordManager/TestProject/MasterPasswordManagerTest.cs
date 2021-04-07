@@ -51,9 +51,23 @@ namespace TestProject
         public void ReturnsTrueIfTheHashMatches(string hash, bool expected)
         {
 
-            var actual = MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(hash), _testUser.Id, out byte[] key);
+            var actual = MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(hash), _testUser.Id);
 
             Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestCase("Password123")]
+        [TestCase("Password")]
+        [TestCase("+=-_Password_354")]
+        public void ReturnsTheCorrectHash(string password)
+        {
+
+            var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(password), _testMPassword.Salt, _testMPassword.Iterations, 16);
+
+            MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(password), _testUser.Id, out byte[] key);
+
+            Assert.AreEqual(true, Hash.CompareHash(hash, key));
 
         }
 
