@@ -34,6 +34,7 @@ namespace PasswordManagerView
         private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
 
+
             var user = UserManager.Retrieve(EmailTxtBox.Text);
 
             if (user == null)

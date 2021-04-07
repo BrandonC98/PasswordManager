@@ -33,18 +33,22 @@ namespace PasswordManagerView
         private void BtnClickCreate(object sender, RoutedEventArgs e)
         {
 
-            if(!EmailTxtBox.Text.Contains("@"))
+            EmailController emailController = new EmailController();
+
+            var isValidEmail = emailController.IsValidEmail(EmailTxtBox.Text);
+
+            if(isValidEmail)
             {
 
-                MessageBox.Show("Error: not a proper Email addresss");
+                MessageBox.Show(emailController.ErrorMessage);
                 return;
 
             }
             
-            if(UserManager.Exist(EmailTxtBox.Text))
+            if(emailController.IsEmailInUse(EmailTxtBox.Text))
             {
 
-                MessageBox.Show("This Email Address already has an account");
+                MessageBox.Show(emailController.ErrorMessage);
                 return;
 
             }

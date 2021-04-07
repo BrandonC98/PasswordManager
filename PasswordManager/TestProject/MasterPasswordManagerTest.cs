@@ -35,8 +35,7 @@ namespace TestProject
 
                     _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
                 
-              
-                
+          
                     var salt = Hash.GenerateSalt(20);
                     var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("Password123"), salt, 1000, 16);
 
@@ -44,8 +43,18 @@ namespace TestProject
                     db.SaveChanges();
                     _testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
                 
-
             }
+        }
+
+        [TestCase("Password123", true)]
+        [TestCase("321drowssad", false)]
+        public void ReturnsTrueIfTheHashMatches(string hash, bool expected)
+        {
+
+            var actual = MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(hash), _testUser.Id, out byte[] key);
+
+            Assert.AreEqual(expected, actual);
+
         }
 
         [Test]
