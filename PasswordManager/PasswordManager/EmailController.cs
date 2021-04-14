@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PasswordManagerData.Services;
 
 namespace PasswordManager
 {
@@ -28,8 +29,9 @@ namespace PasswordManager
 
         public bool IsEmailInUse(string email)
         {
+            var userManager = new UserManager();
 
-            if (!UserManager.Exist(email)) return false;
+            if (!userManager.Exist(email)) return false;
             else
             {
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using PasswordManager;
 using PasswordManagerData;
@@ -39,12 +37,13 @@ namespace TestProject
         [Test]
         public void WhenAUserIsDeletedTheDatabaseIsUpdated()
         {
+            var userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
 
                 var numberOfUsersBefore = db.Users.Count();
-                UserManager.Delete(_testUser.Id);
+                userManager.Delete(_testUser.Id);
                 var numberOfUsersAfter = db.Users.Count();
 
                 Assert.AreEqual(numberOfUsersBefore - 1, numberOfUsersAfter);
@@ -56,11 +55,12 @@ namespace TestProject
         [Test]
         public void WhenAUserIsCreatedTheDatabaseIsUpdated()
         {
+            var userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var numberOfUsersBefore = db.Users.Count();
-                UserManager.Create("Brandon", "Campbell", "MyEmail@Emails.com");
+                userManager.Create("Brandon", "Campbell", "MyEmail@Emails.com");
                 var numberOfUsersAfter = db.Users.Count();
 
                 Assert.AreEqual(numberOfUsersBefore + 1, numberOfUsersAfter);
@@ -72,11 +72,12 @@ namespace TestProject
         [Test]
         public void WhenAUserIsRetrivedItIsTheCorrectUser()
         {
+            var userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var expectedUser = db.Users.Find(_testUser.Id);
-                var user = UserManager.Retrieve(_testUser.Id);
+                var user = userManager.Retrieve(_testUser.Id);
 
                 Assert.AreEqual(expectedUser.Id, user.Id);
 
@@ -87,11 +88,12 @@ namespace TestProject
         [Test]
         public void WhenAUserIsRetrivedByEmailItIsTheCorrectUser()
         {
+            var userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var expectedUser = db.Users.Find(_testUser.Id);
-                var user = UserManager.Retrieve(_testUser.EmailAddress);
+                var user = userManager.Retrieve(_testUser.EmailAddress);
 
                 Assert.AreEqual(expectedUser.Id, user.Id);
 
@@ -102,11 +104,12 @@ namespace TestProject
         [Test]
         public void WhenCheckedToSeeIfAUserExistsItsAlwayCorrect()
         {
+            var userManager = new UserManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var expectedUser = db.Users.Find(_testUser.Id);
-                var answer = UserManager.Exist(_testUser.EmailAddress);
+                var answer = userManager.Exist(_testUser.EmailAddress);
 
                 Assert.AreEqual(true, answer);
 
@@ -118,9 +121,11 @@ namespace TestProject
         public void WhenAUserIsUpdatedTheDatabaseWillShowTheChange()
         {
 
+            var userManager = new UserManager();
+
             using (var db = new PasswordManagerContext())
             {
-                UserManager.Update(_testUser.Id, newLastName: "Smith");
+                userManager.Update(_testUser.Id, newLastName: "Smith");
                 Assert.AreEqual("Smith", db.Users.Find(_testUser.Id).LastName);
 
             }

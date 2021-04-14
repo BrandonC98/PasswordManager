@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PasswordManager;
+using PasswordManagerData;
 
 namespace PasswordManagerView
 {
@@ -23,7 +24,7 @@ namespace PasswordManagerView
     {
 
         private int _userId;
-        private PasswordManagerData.Website _currentWebsite;
+        private Website _currentWebsite;
         private MainWindow _mainWindow;
 
         public DetailsPage(int userId, PasswordManagerData.Website website, string plainTextPassword, MainWindow mainWindow)

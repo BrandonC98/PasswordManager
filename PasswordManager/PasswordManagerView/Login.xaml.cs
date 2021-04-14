@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,9 +31,10 @@ namespace PasswordManagerView
 
         private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
+            var userManager = new UserManager();
 
             var emailController = new EmailController();
-            var user = UserManager.Retrieve(EmailTxtBox.Text);
+            var user = userManager.Retrieve(EmailTxtBox.Text);
 
             if(!emailController.IsEmailInUse(EmailTxtBox.Text))
             {
@@ -43,7 +42,6 @@ namespace PasswordManagerView
                 MessageBox.Show("No Account exists with this email");
                 return;
                 
-
             }
 
             if (MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), user.Id))

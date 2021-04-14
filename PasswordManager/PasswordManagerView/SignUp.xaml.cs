@@ -32,7 +32,7 @@ namespace PasswordManagerView
 
         private void BtnClickCreate(object sender, RoutedEventArgs e)
         {
-
+            var userManager = new UserManager();
             EmailController emailController = new EmailController();
 
             var isValidEmail = emailController.IsValidEmail(EmailTxtBox.Text);
@@ -55,8 +55,8 @@ namespace PasswordManagerView
 
             if (ConfirmPasswordTxtBox.Password != PasswordTxtBox.Password) return;
 
-            UserManager.Create(FirstNameTxtBox.Text, LastNameTxtBox.Text, EmailTxtBox.Text);
-            MasterPasswordManager.Create(UserManager.Retrieve(EmailTxtBox.Text).Id, PasswordTxtBox.Password);
+            userManager.Create(FirstNameTxtBox.Text, LastNameTxtBox.Text, EmailTxtBox.Text);
+            MasterPasswordManager.Create(userManager.Retrieve(EmailTxtBox.Text).Id, PasswordTxtBox.Password);
             MessageBox.Show("Account Created");
             Window.MainLogin.Content = new Login(Window);
             

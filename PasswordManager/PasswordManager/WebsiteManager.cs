@@ -82,7 +82,6 @@ namespace PasswordManager
                 var encryptedPassword = db.Websites.Find(websiteId).Password;
                 return SymmetricEncryption.Decrypt(Convert.ToBase64String(key), encryptedPassword);
 
-
             }
 
         }

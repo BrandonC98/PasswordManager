@@ -27,9 +27,10 @@ namespace PasswordManagerView
         public AccountPage(int userId)
         {
             InitializeComponent();
+            var userManager = new UserManager();
 
             _userId = userId;
-            var user = UserManager.Retrieve(_userId);
+            var user = userManager.Retrieve(_userId);
             FirstNameTxtBoxAccountSettings.Text = user.FirstName;
             LastNameTxtBoxAccountSettings.Text = user.LastName;
             EmailTxtBoxAccountSettings.Text = user.EmailAddress;
@@ -38,8 +39,9 @@ namespace PasswordManagerView
 
         private void BtnClickUpdateAccount(object sender, RoutedEventArgs e)
         {
+            var userManager = new UserManager();
 
-            UserManager.Update(_userId, FirstNameTxtBoxAccountSettings.Text, LastNameTxtBoxAccountSettings.Text, EmailTxtBoxAccountSettings.Text);
+            userManager.Update(_userId, FirstNameTxtBoxAccountSettings.Text, LastNameTxtBoxAccountSettings.Text, EmailTxtBoxAccountSettings.Text);
             MessageBox.Show("Account Updated");
 
         }

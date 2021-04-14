@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PasswordManager;
+using PasswordManagerData;
 
 namespace PasswordManagerView
 {
@@ -23,13 +24,11 @@ namespace PasswordManagerView
     {
 
         public int UserId { get; set; }
-        private WebsiteManager _websiteManager;
-        private PasswordManagerData.Website _currentWebsite;
+        private Website _currentWebsite;
 
         public MainWindow(int userId)
         {
             InitializeComponent();
-            _websiteManager = new WebsiteManager();
             UserId = userId;
 
             PopulateWebsiteList();
@@ -43,7 +42,7 @@ namespace PasswordManagerView
 
             if(WebsiteList.SelectedItem != null)
             {
-                _currentWebsite = (PasswordManagerData.Website)WebsiteList.SelectedItem;
+                _currentWebsite = (Website)WebsiteList.SelectedItem;
                 EnterMasterPassword enterMasterPasswordWindow = new EnterMasterPassword(UserId, this);
                 enterMasterPasswordWindow.Show();
 
@@ -62,7 +61,7 @@ namespace PasswordManagerView
         {
 
             var plainTextPassword = WebsiteManager.DecryptPasswordForWebsite(_currentWebsite.Id, hashKey);
-            var website = (PasswordManagerData.Website)WebsiteList.SelectedItem;
+            var website = (Website)WebsiteList.SelectedItem;
             DetailsWindow.Content = new DetailsPage(UserId, website, plainTextPassword, this);
             
         }
@@ -73,7 +72,6 @@ namespace PasswordManagerView
             var loginWindow = new LoginWindow();
             this.Close();
             loginWindow.Visibility = Visibility.Visible;
-
 
         }
 

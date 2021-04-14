@@ -1,51 +1,18 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using PasswordManagerData;
-using System.Net;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PasswordManager
 {
-
     class Program
     {
 
-        static void Main(string[] args)
+        public static void Main()
         {
 
-            using (var db = new PasswordManagerContext())
-            {
-                Console.WriteLine("Removing");
-                var userManager = new UserManager();
-                var passwordManager = new MasterPasswordManager();
-                var websiteManager = new WebsiteManager();
-                foreach(var user in db.Users)
-                {
 
-                    UserManager.Delete(user.Id);
-                    
-                }
-
-                foreach (var password in db.MasterPasswords)
-                {
-
-                    MasterPasswordManager.Delete(password.Id);
-
-                }
-
-                foreach (var website in db.Websites)
-                {
-
-                    WebsiteManager.Delete(website.Id);
-
-                }
-
-                Console.WriteLine("Removal complete");
-            }
 
         }
 

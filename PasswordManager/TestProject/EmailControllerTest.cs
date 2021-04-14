@@ -10,8 +10,6 @@ namespace TestProject
     class EmailControllerTest
     {
 
-        private User _testUser;
-
         [SetUp]
         public void Setup()
         {
@@ -29,7 +27,6 @@ namespace TestProject
                 db.Users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
                 db.SaveChanges();
 
-                _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
 
             }
         }
