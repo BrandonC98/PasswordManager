@@ -27,21 +27,21 @@ namespace TestProject
                     where u.EmailAddress == "UnitTest@Testing.co.uk"
                     select u;
 
-                    db.Users.RemoveRange(selectedUser);
-                    db.SaveChanges();
+                db.Users.RemoveRange(selectedUser);
+                db.SaveChanges();
 
-                    db.Users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
-                    db.SaveChanges();
+                db.Users.Add(new User() { FirstName = "Unit", LastName = "Test", EmailAddress = "UnitTest@Testing.co.uk" });
+                db.SaveChanges();
 
-                    _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
+                _testUser = db.Users.Where(u => u.EmailAddress == "UnitTest@Testing.co.uk").FirstOrDefault();
                 
           
-                    var salt = Hash.GenerateSalt(20);
-                    var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("Password123"), salt, 1000, 16);
+                var salt = Hash.GenerateSalt(20);
+                var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("Password123"), salt, 1000, 16);
 
-                    db.MasterPasswords.Add(new MasterPassword() { Hash = hashPassword, Salt = salt, Iterations = 1000, UserId = _testUser.Id });
-                    db.SaveChanges();
-                    _testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
+                db.MasterPasswords.Add(new MasterPassword() { Hash = hashPassword, Salt = salt, Iterations = 1000, UserId = _testUser.Id });
+                db.SaveChanges();
+                _testMPassword = db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault();
                 
             }
         }

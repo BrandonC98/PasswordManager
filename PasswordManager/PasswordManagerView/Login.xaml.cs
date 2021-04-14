@@ -34,16 +34,17 @@ namespace PasswordManagerView
         private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
 
+            var emailController = new EmailController();
+            var user = UserManager.Retrieve(EmailTxtBox.Text);
 
-
-            if (UserManager.Exist(EmailTxtBox.Text))
+            if(!emailController.IsEmailInUse(EmailTxtBox.Text))
             {
+
                 MessageBox.Show("No Account exists with this email");
                 return;
+                
 
             }
-            
-            var user = UserManager.Retrieve(EmailTxtBox.Text);
 
             if (MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), user.Id))
             {
