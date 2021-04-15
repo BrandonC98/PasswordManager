@@ -50,8 +50,9 @@ namespace TestProject
         [TestCase("321drowssad", false)]
         public void ReturnsTrueIfTheHashMatches(string hash, bool expected)
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
-            var actual = MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(hash), _testUser.Id);
+            var actual = masterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(hash), _testUser.Id);
 
             Assert.AreEqual(expected, actual);
 
@@ -62,10 +63,10 @@ namespace TestProject
         [TestCase("+=-_Password_354")]
         public void ReturnsTheCorrectHash(string password)
         {
-
+            var masterPasswordManager = new MasterPasswordManager();
             var hash = Hash.GenerateHash(Encoding.ASCII.GetBytes(password), _testMPassword.Salt, _testMPassword.Iterations, 16);
 
-            MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(password), _testUser.Id, out byte[] key);
+            masterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(password), _testUser.Id, out byte[] key);
 
             Assert.AreEqual(true, Hash.CompareHash(hash, key));
 
@@ -74,11 +75,12 @@ namespace TestProject
         [Test]
         public void WhenAPasswordIsRetrivedItIsTheCorrectPassword()
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var expectedPassword = db.MasterPasswords.Find(_testMPassword.Id);
-                var actualPassword = MasterPasswordManager.Retrieve(_testMPassword.Id);
+                var actualPassword = masterPasswordManager.Retrieve(_testMPassword.Id);
 
                 Assert.AreEqual(expectedPassword.Hash, actualPassword.Hash);
 
@@ -89,11 +91,12 @@ namespace TestProject
         [Test]
         public void WhenAPasswordIsRetrivedByIdItIsTheCorrectPassword()
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var expectedPassword = db.MasterPasswords.Find(_testMPassword.Id);
-                var actualPassword = MasterPasswordManager.RetrieveByUserId(_testUser.Id);
+                var actualPassword = masterPasswordManager.RetrieveByUserId(_testUser.Id);
 
                 Assert.AreEqual(expectedPassword.Hash, actualPassword.Hash);
 
@@ -104,13 +107,14 @@ namespace TestProject
         [Test]
         public void WhenAPasswordIsCreatedTheDatabaseIsUpdated()
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
             using (var db = new PasswordManagerContext())
             {
                 db.MasterPasswords.RemoveRange(db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id));
                 db.SaveChanges();
                 var numberOfUsersBefore = db.MasterPasswords.Count();
-                MasterPasswordManager.Create(_testUser.Id, "ThisIsAStrongPassword123");
+                masterPasswordManager.Create(_testUser.Id, "ThisIsAStrongPassword123");
                 var numberOfUsersAfter = db.MasterPasswords.Count();
 
                 Assert.AreEqual(numberOfUsersBefore + 1, numberOfUsersAfter);
@@ -122,12 +126,13 @@ namespace TestProject
         [Test]
         public void WhenAPasswordIsDeletedTheDatabaseIsUpdated()
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
             using (var db = new PasswordManagerContext())
             {
 
                 var numberOfPasswordsBefore = db.MasterPasswords.Count();
-                MasterPasswordManager.Delete(db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault().Id);
+                masterPasswordManager.Delete(db.MasterPasswords.Where(mp => mp.UserId == _testUser.Id).FirstOrDefault().Id);
                 var numberOfPasswordsAfter = db.MasterPasswords.Count();
 
                 Assert.AreEqual(numberOfPasswordsBefore - 1, numberOfPasswordsAfter);
@@ -139,13 +144,14 @@ namespace TestProject
         [Test]
         public void WhenAPasswordIsUpdatedTheDatabaseWillShowTheChange()
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
             using (var db = new PasswordManagerContext())
             {
                 var oldHash = _testMPassword.Hash;
                 var salt = Hash.GenerateSalt(20);
                 var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("ThisIsAStrongPassword123"), salt, 1000, 16);
-                MasterPasswordManager.Update(_testMPassword.Id, hashPassword, salt);
+                masterPasswordManager.Update(_testMPassword.Id, hashPassword, salt);
                 Assert.AreEqual(false, Hash.CompareHash(db.MasterPasswords.Find(_testMPassword.Id).Hash, oldHash));
             }
 

@@ -35,8 +35,9 @@ namespace PasswordManagerView
 
         private void BtnClickContinue(object sender, RoutedEventArgs e)
         {
+            var masterPasswordManager = new MasterPasswordManager();
 
-            if(MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(MPasswordTxtBox.Password), _userId, out byte[] key))
+            if (masterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(MPasswordTxtBox.Password), _userId, out byte[] key))
             {
 
                 this.Visibility = Visibility.Hidden;

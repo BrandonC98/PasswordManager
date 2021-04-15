@@ -20,6 +20,13 @@ namespace PasswordManager
 
         }
 
+        public UserManager(IUserService service)
+        {
+
+            _service = service;
+
+        }
+
         public void Create(string firstName, string lastName, string email)
         {
 

@@ -32,8 +32,9 @@ namespace PasswordManagerView
         private void BtnClickLogin(object sender, RoutedEventArgs e)
         {
             var userManager = new UserManager();
-
+            var masterPasswordManager = new MasterPasswordManager();
             var emailController = new EmailController();
+
             var user = userManager.Retrieve(EmailTxtBox.Text);
 
             if(!emailController.IsEmailInUse(EmailTxtBox.Text))
@@ -44,7 +45,7 @@ namespace PasswordManagerView
                 
             }
 
-            if (MasterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), user.Id))
+            if (masterPasswordManager.CompareHash(Encoding.ASCII.GetBytes(PasswordTxtBox.Password), user.Id))
             {
 
                 MainWindow main = new MainWindow(user.Id);
