@@ -257,3 +257,5 @@ C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestPr
 C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestProject\obj\Debug\net5.0\ref\TestProject.dll
 C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestProject\obj\Debug\net5.0\TestProject.pdb
 C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestProject\obj\Debug\net5.0\TestProject.genruntimeconfig.cache
+C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestProject\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\Brandon\Documents\Sparta Global\Training\Project\PasswordManager\TestProject\bin\Debug\net5.0\Moq.dll
