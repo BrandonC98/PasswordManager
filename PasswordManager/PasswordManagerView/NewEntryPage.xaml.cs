@@ -48,10 +48,10 @@ namespace PasswordManagerView
 
         public void OnPasswordConfirmation(byte[] hashKey)
         {
-
+            var websiteManager = new WebsiteManager();
             var encryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), WebsitePasswordTxtBox.Password);
 
-            WebsiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
+            websiteManager.Create(UserId, WebsiteNameTxtBox.Text, encryptedPassword, UsernameTxtBox.Text, UrlTxtBox.Text);
             _mainWindow.PopulateWebsiteList();
             _mainWindow.DetailsWindow.Content = new BlankPage();
 

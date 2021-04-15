@@ -4,12 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PasswordManagerData;
+using PasswordManagerData.Services;
 
 namespace PasswordManager
 {
     public class WebsiteManager
     {
-        public static void Create(int UserId, string WebsiteName, string encryptedPassword, string Username = null, string Url = null)
+
+        private IWebsiteService _service;
+
+        public WebsiteManager()
+        {
+
+            _service = new WebsiteService();
+
+        }
+
+        public WebsiteManager(IWebsiteService service)
+        {
+
+            _service = service;
+
+        }
+
+        public void Create(int UserId, string WebsiteName, string encryptedPassword, string Username = null, string Url = null)
         {
             
             using(var db = new PasswordManagerContext())
@@ -18,75 +36,58 @@ namespace PasswordManager
                 if (Username == null) Username = "Unknown";
                 if (Url == null) Url = "Unknown";
 
-                db.Websites.Add(new Website()
+                var website = new Website()
                 {
                     UserId = UserId,
                     Name = WebsiteName,
                     Password = encryptedPassword,
                     Username = Username,
                     Url = Url
-                });
-                db.SaveChanges();
+                };
+
+                _service.Create(website);
+
 
             }
 
         }
 
-        public static void Delete(int id)
-        {
-            
-            using(var db = new PasswordManagerContext())
-            {
-
-                db.Websites.RemoveRange(db.Websites.Find(id));
-                db.SaveChanges();
-
-            }
-
-        }
-
-        public static Website Retrieve(int id)
-        {
-            using (var db = new PasswordManagerContext())
-            {
-
-                return db.Websites.Find(id);
-
-            }
-        }
-
-        public static void Update(int id, string websiteName = null, string encryptedPassword = null, string username = null, string url = null)
+        public void Delete(int id)
         {
 
-            using(var db = new PasswordManagerContext())
-            {
-
-                var website = db.Websites.Find(id);
-
-                if (websiteName != null) website.Name = websiteName;
-                if (encryptedPassword != null) website.Password = encryptedPassword;
-                if (username != null) website.Username = username;
-                if (url != null) website.Url = url;
-                db.SaveChanges();
-
-            }
+            _service.Delete(id);
 
         }
 
-        public static string DecryptPasswordForWebsite(int websiteId, byte[] key)
+        public Website Retrieve(int id)
         {
 
-            using (var db = new PasswordManagerContext())
-            {
-
-                var encryptedPassword = db.Websites.Find(websiteId).Password;
-                return SymmetricEncryption.Decrypt(Convert.ToBase64String(key), encryptedPassword);
-
-            }
+            return _service.GetWebsiteById(id);
 
         }
 
-        public static List<Website> GetAll(int userId)
+        public void Update(int id, string websiteName = null, string encryptedPassword = null, string username = null, string url = null)
+        {
+
+            var website = _service.GetWebsiteById(id);
+
+            if (websiteName != null) website.Name = websiteName;
+            if (encryptedPassword != null) website.Password = encryptedPassword;
+            if (username != null) website.Username = username;
+            if (url != null) website.Url = url;
+            _service.SaveChanges();
+
+        }
+
+        public string DecryptPasswordForWebsite(int websiteId, byte[] key)
+        {
+
+                var encryptedPassword = _service.GetWebsiteById(websiteId).Password;
+                return SymmetricEncryption.Decrypt(Convert.ToBase64String(key), encryptedPassword);           
+
+        }
+
+        public List<Website> GetAll(int userId)
         {
 
             using (var db = new PasswordManagerContext())

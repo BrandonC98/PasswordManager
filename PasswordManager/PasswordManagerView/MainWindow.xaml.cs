@@ -35,7 +35,14 @@ namespace PasswordManagerView
 
         }
 
-        public void PopulateWebsiteList() => WebsiteList.ItemsSource = WebsiteManager.GetAll(UserId);   
+        public void PopulateWebsiteList()
+        { 
+
+            var websiteManager = new WebsiteManager();
+
+            WebsiteList.ItemsSource = websiteManager.GetAll(UserId);
+
+        }
 
         private void WebsiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -59,8 +66,8 @@ namespace PasswordManagerView
 
         public void OnPasswordConfirmation(byte[] hashKey)
         {
-
-            var plainTextPassword = WebsiteManager.DecryptPasswordForWebsite(_currentWebsite.Id, hashKey);
+            var websiteManager = new WebsiteManager();
+            var plainTextPassword = websiteManager.DecryptPasswordForWebsite(_currentWebsite.Id, hashKey);
             var website = (Website)WebsiteList.SelectedItem;
             DetailsWindow.Content = new DetailsPage(UserId, website, plainTextPassword, this);
             

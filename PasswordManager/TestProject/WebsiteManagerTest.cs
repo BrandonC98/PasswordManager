@@ -61,6 +61,7 @@ namespace TestProject
         [Test]
         public void WhenAWebsiteIsCreatedTheDatabaseIsUpdated()
         {
+            var websiteManager = new WebsiteManager();
 
             using (var db = new PasswordManagerContext())
             {
@@ -69,7 +70,7 @@ namespace TestProject
                 db.SaveChanges();
 
                 var numberOfWebsitesBefore = db.Websites.Count();
-                WebsiteManager.Create(_testUser.Id, "Google", _encryptedPassword, "Username1", $"https://www.youtube.com/");
+                websiteManager.Create(_testUser.Id, "Google", _encryptedPassword, "Username1", $"https://www.youtube.com/");
                 var numberOfWebsitesAfter = db.Websites.Count();
 
                 Assert.AreEqual(numberOfWebsitesBefore + 1, numberOfWebsitesAfter);
@@ -84,9 +85,9 @@ namespace TestProject
 
             using (var db = new PasswordManagerContext())
             {
-
+                var websiteManager = new WebsiteManager();
                 var numberOfWebsitesBefore = db.Websites.Count();
-                WebsiteManager.Delete(_testWebsite.Id);
+                websiteManager.Delete(_testWebsite.Id);
                 var numberOfWebsitesAfter = db.Websites.Count();
 
                 Assert.AreEqual(numberOfWebsitesBefore - 1, numberOfWebsitesAfter);
@@ -97,12 +98,13 @@ namespace TestProject
         [Test]
         public void WhenRequestedTheCorrectWebsiteIsReturned()
         {
+            var websiteManager = new WebsiteManager();
 
-            using(var db = new PasswordManagerContext())
+            using (var db = new PasswordManagerContext())
             {
 
                 var expectedWebsite = db.Websites.Find(_testWebsite.Id);
-                var website = WebsiteManager.Retrieve(_testWebsite.Id);
+                var website = websiteManager.Retrieve(_testWebsite.Id);
 
                 Assert.AreEqual(expectedWebsite.Id, website.Id);
 
@@ -113,12 +115,13 @@ namespace TestProject
         [Test]
         public void WhenRetrieveAllIsCalledWillReturnAllWebsitesForThatUser()
         {
+            var websiteManager = new WebsiteManager();
 
             using (var db = new PasswordManagerContext())
             {
 
                 var count = db.Websites.Count(u => u.UserId == _testUser.Id);
-                List<Website> websites = WebsiteManager.GetAll(_testUser.Id);
+                List<Website> websites = websiteManager.GetAll(_testUser.Id);
 
                 Assert.AreEqual(count, websites.Count());
 
@@ -129,12 +132,13 @@ namespace TestProject
         [Test]
         public void WhenUpdatedTheDatabaseWillReflectTheChanges()
         {
+            var websiteManager = new WebsiteManager();
 
             using (var db = new PasswordManagerContext())
             {
 
                 var expectedUsername = "NewUsername";
-                WebsiteManager.Update(_testWebsite.Id, username:expectedUsername);
+                websiteManager.Update(_testWebsite.Id, username:expectedUsername);
 
                 Assert.AreEqual(expectedUsername, db.Websites.Find(_testWebsite.Id).Username);
 

@@ -66,12 +66,13 @@ namespace PasswordManagerView
 
         public void OnPasswordConfirmation(byte [] hashKey)
         {
+            var websiteManager = new WebsiteManager();
 
             var newEncryptedPassword = SymmetricEncryption.Encrypt(Convert.ToBase64String(hashKey), DetailsPagePasswordShowTxtBox.Text);
             var newUserName = DetailsPageUsernameTxtBox.Text;
 
-            WebsiteManager.Update(_currentWebsite.Id, DetailsPageWebsiteNameTxtBox.Text, newEncryptedPassword, newUserName, DetailsPageUrlTxtBox.Text);
-            _currentWebsite = WebsiteManager.Retrieve(_currentWebsite.Id);
+            websiteManager.Update(_currentWebsite.Id, DetailsPageWebsiteNameTxtBox.Text, newEncryptedPassword, newUserName, DetailsPageUrlTxtBox.Text);
+            _currentWebsite = websiteManager.Retrieve(_currentWebsite.Id);
             PopulateDetails(DetailsPagePasswordShowTxtBox.Text);
             _mainWindow.PopulateWebsiteList();
 
@@ -79,8 +80,9 @@ namespace PasswordManagerView
 
         private void BtnClickDeleteWebsite(object sender, RoutedEventArgs e)
         {
+            var websiteManager = new WebsiteManager();
 
-            WebsiteManager.Delete(_currentWebsite.Id);
+            websiteManager.Delete(_currentWebsite.Id);
             _mainWindow.PopulateWebsiteList();
             _mainWindow.DetailsWindow.Content = new BlankPage();
 
