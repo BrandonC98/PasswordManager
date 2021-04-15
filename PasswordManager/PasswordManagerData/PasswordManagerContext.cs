@@ -17,6 +17,14 @@ namespace PasswordManagerData
         protected override void OnConfiguring(DbContextOptionsBuilder options)
     => options.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PasswordManager;");
 
+        public PasswordManagerContext()
+        {
+
+        }
+
+        public PasswordManagerContext(DbContextOptions<PasswordManagerContext> option) : base(option)
+        {
+        }
 
     }
 }

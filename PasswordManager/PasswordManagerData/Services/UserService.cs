@@ -18,6 +18,13 @@ namespace PasswordManagerData.Services
 
         }
 
+        public UserService(PasswordManagerContext context)
+        {
+
+            _context = context;
+
+        }
+
         public bool Exist(string email)
         {
 
