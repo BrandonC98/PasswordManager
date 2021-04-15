@@ -73,22 +73,6 @@ namespace TestProject
         }
 
         [Test]
-        public void WhenAPasswordIsRetrivedItIsTheCorrectPassword()
-        {
-            var masterPasswordManager = new MasterPasswordManager();
-
-            using (var db = new PasswordManagerContext())
-            {
-                var expectedPassword = db.MasterPasswords.Find(_testMPassword.Id);
-                var actualPassword = masterPasswordManager.Retrieve(_testMPassword.Id);
-
-                Assert.AreEqual(expectedPassword.Hash, actualPassword.Hash);
-
-            }
-
-        }
-
-        [Test]
         public void WhenAPasswordIsRetrivedByIdItIsTheCorrectPassword()
         {
             var masterPasswordManager = new MasterPasswordManager();

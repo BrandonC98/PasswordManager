@@ -27,15 +27,6 @@ namespace PasswordManager
 
         }
 
-        public MasterPassword Retrieve(int id)
-        {
-            using (var db = new PasswordManagerContext())
-            {
-                return db.MasterPasswords.Find(id); 
-            }
-
-        }
-
         public bool CompareHash(byte[] newPassword, int userId)
         {
 

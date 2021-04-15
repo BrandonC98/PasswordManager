@@ -59,21 +59,6 @@ namespace TestProject
         }
 
         [Test]
-        public void WhenCalledTheDecryptPasswordForWebsiteFunctionWillReturnTheRightString()
-        {
-            var masterPasswordManager = new MasterPasswordManager();
-
-            using (var db = new PasswordManagerContext())
-            {
-                
-                var actual = WebsiteManager.DecryptPasswordForWebsite(_testWebsite.Id, masterPasswordManager.Retrieve(_masterPasswordId).Hash);
-                Assert.AreEqual("YouTubePassword1", actual);
-
-            }
-
-        }
-
-        [Test]
         public void WhenAWebsiteIsCreatedTheDatabaseIsUpdated()
         {
 
