@@ -142,9 +142,7 @@ namespace TestProject
         public void ReturnsAError_WhenGetByEmailIsCalledWithAEmailNotInTheDataBase()
         {
 
-            //var result = _sut.GetByEmail("Null@Testing.com");
             Assert.That(() => _sut.GetByEmail("Null@Testing.com"), Throws.TypeOf<NullReferenceException>());
-
 
         }
 
@@ -173,6 +171,17 @@ namespace TestProject
                 EmailAddress = "JohnDoe@Testing.com",
 
             });
+        }
+
+
+        [Test]
+        [Category("Service Test")]
+        [Category("Unhappy Path")]
+        public void GivenAnInvalidUserId_ThrowAnError()
+        {
+
+            Assert.That(() => _sut.RemoveUser(-1), Throws.TypeOf<NullReferenceException>());
+
         }
 
 

@@ -62,6 +62,9 @@ namespace PasswordManagerData.Services
 
         public void RemoveUser(int id)
         {
+
+            if (_context.Users.Find(id) == null) throw new NullReferenceException("No user with this Id was found");
+
             _context.RemoveRange(_context.Users.Find(id));
             _context.SaveChanges();
         }
