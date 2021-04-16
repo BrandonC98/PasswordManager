@@ -40,7 +40,13 @@ namespace PasswordManagerData.Services
 
         public User GetUserById(int userId)
         {
-            return _context.Users.Find(userId);
+
+            var user = _context.Users.Find(userId);
+
+            if (user == null) throw new NullReferenceException("No user of this Id was found");
+
+            return user;
+
         }
 
         public User GetByEmail(string email)

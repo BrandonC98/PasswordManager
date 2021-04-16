@@ -46,6 +46,8 @@ namespace TestProject
         }
 
         [Test]
+        [Category("Service Test")]
+        [Category("Happy Path")]
         public void GivenANewUser_CreateUserAddItToDataBase()
         {
 
@@ -73,6 +75,8 @@ namespace TestProject
         }
 
         [Test]
+        [Category("Service Test")]
+        [Category("Happy Path")]
         public void ReturnsAValidUser_WhenGetUserByIdIsCalled()
         {
             var user = _context.Users.
@@ -85,6 +89,20 @@ namespace TestProject
         }
 
         [Test]
+        [Category("Service Test")]
+        [Category("Unhappy Path")]
+        public void ReturnsAErrorUser_WhenGetUserByIdIsCalled()
+        {
+
+
+            Assert.That(() => _sut.GetUserById(-1), Throws.TypeOf<NullReferenceException>());
+
+        }
+
+
+        [Test]
+        [Category("Service Test")]
+        [Category("Happy Path")]
         public void ReturnsTrue_WhenAUserIsCurrentlyInTheDataBase()
         {
 
@@ -95,6 +113,8 @@ namespace TestProject
         }
 
         [Test]
+        [Category("Service Test")]
+        [Category("Happy Path")]
         public void ReturnsAValidUser_WhenGetByEmailIsCalled()
         {
 
@@ -106,6 +126,8 @@ namespace TestProject
         }
 
         [Test]
+        [Category("Service Test")]
+        [Category("Happy Path")]
         public void GivenAUserId_RemoveItFromTheDataBase()
         {
 
