@@ -52,7 +52,11 @@ namespace PasswordManagerData.Services
         public User GetByEmail(string email)
         {
 
-            return _context.Users.Where(u => u.EmailAddress == email).FirstOrDefault();
+            var user = _context.Users.Where(u => u.EmailAddress == email).FirstOrDefault();
+
+            if (user == null) throw new NullReferenceException("No user of with this Email was found");
+
+            return user;
 
         }
 

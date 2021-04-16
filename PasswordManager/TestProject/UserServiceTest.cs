@@ -94,7 +94,6 @@ namespace TestProject
         public void ReturnsAErrorUser_WhenGetUserByIdIsCalled()
         {
 
-
             Assert.That(() => _sut.GetUserById(-1), Throws.TypeOf<NullReferenceException>());
 
         }
@@ -114,6 +113,18 @@ namespace TestProject
 
         [Test]
         [Category("Service Test")]
+        [Category("Unhappy Path")]
+        public void ReturnsFalse_WhenAUserIsntCurrentlyInTheDataBase()
+        {
+
+            var result = _sut.Exist("Null@Testing.com");
+
+            Assert.That(result, Is.False);
+
+        }
+
+        [Test]
+        [Category("Service Test")]
         [Category("Happy Path")]
         public void ReturnsAValidUser_WhenGetByEmailIsCalled()
         {
@@ -122,6 +133,18 @@ namespace TestProject
             Assert.That(result.FirstName, Is.EqualTo("John"));
             Assert.That(result.LastName, Is.EqualTo("Doe"));
             Assert.That(result.EmailAddress, Is.EqualTo("JohnDoe@Testing.com"));
+
+        }
+
+        [Test]
+        [Category("Service Test")]
+        [Category("Unhappy Path")]
+        public void ReturnsAError_WhenGetByEmailIsCalledWithAEmailNotInTheDataBase()
+        {
+
+            //var result = _sut.GetByEmail("Null@Testing.com");
+            Assert.That(() => _sut.GetByEmail("Null@Testing.com"), Throws.TypeOf<NullReferenceException>());
+
 
         }
 
