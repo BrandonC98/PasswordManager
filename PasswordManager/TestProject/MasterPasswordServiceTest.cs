@@ -58,14 +58,24 @@ namespace TestProject
         [Test]
         [Category("Happy Path")]
         [Category("Service Test")]
-        public void ReturnsAValidMasterPassword_WhenGetMasterPasswordByIdIsCalled()
+        public void ReturnsAValidMasterPassword_WhenGetMasterPasswordByUserIdIsCalled()
         {
             var userId = _context.Users.Where(u => u.EmailAddress == "JohnDoe@Testing.com").FirstOrDefault().Id;
             var masterPassword = _context.MasterPasswords.Where(mp => mp.UserId == userId).FirstOrDefault();
 
-            var result = _sut.GetMasterPasswordById(masterPassword.Id);
+            var result = _sut.GetMasterPasswordByUserId(userId);
 
             Assert.That(Hash.CompareHash(result.Hash, masterPassword.Hash));
+
+        }
+
+        [Test]
+        [Category("Unhappy Path")]
+        [Category("Service Test")]
+        public void ReturnsANullError_WhenGetMasterPasswordByUserIdIsCalled_WithAIdNotInTheDatabase()
+        {
+
+            Assert.That(() => _sut.GetMasterPasswordByUserId(-1), Throws.TypeOf<NullReferenceException>());
 
         }
 

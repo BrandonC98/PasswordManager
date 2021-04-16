@@ -9,7 +9,7 @@ namespace PasswordManagerData.Services
     public interface IMasterPasswordService
     {
 
-        public MasterPassword GetMasterPasswordById(int masterPasswordId);
+        public MasterPassword GetMasterPasswordByUserId(int masterPasswordId);
 
         public void Create(byte[] hash, byte[] salt, int iterations, int userId);
 

@@ -52,7 +52,7 @@ namespace PasswordManager
         public MasterPassword RetrieveByUserId(int userId)
         {
 
-            return _service.GetMasterPasswordById(userId);
+            return _service.GetMasterPasswordByUserId(userId);
 
         }
 
@@ -80,7 +80,7 @@ namespace PasswordManager
         {
             
 
-            var mPassword = _service.GetMasterPasswordById(id);
+            var mPassword = _service.GetMasterPasswordByUserId(id);
             mPassword.Hash = hash; 
             mPassword.Salt = salt;
             mPassword.Iterations = iteration;

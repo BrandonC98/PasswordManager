@@ -25,9 +25,15 @@ namespace PasswordManagerData.Services
 
         }
 
-        public MasterPassword GetMasterPasswordById(int masterPasswordId)
+        public MasterPassword GetMasterPasswordByUserId(int masterPasswordId)
         {
-            return _context.MasterPasswords.Where(mp => mp.UserId == masterPasswordId).FirstOrDefault();
+
+            var masterPassword = _context.MasterPasswords.Where(mp => mp.UserId == masterPasswordId).FirstOrDefault();
+
+            if (masterPassword == null) throw new NullReferenceException($"No master Password found with a userId of {masterPasswordId}");
+
+            return masterPassword;
+
         }
 
         public void Create(byte[] hash, byte[] salt, int iterations, int userId)
