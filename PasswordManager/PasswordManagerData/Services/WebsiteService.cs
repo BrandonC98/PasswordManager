@@ -10,6 +10,20 @@ namespace PasswordManagerData.Services
     {
         private readonly PasswordManagerContext _context;
 
+        public WebsiteService()
+        {
+
+            _context = new PasswordManagerContext();
+
+        }
+
+        public WebsiteService(PasswordManagerContext context)
+        {
+
+            _context = context;
+
+        }
+
         public void Create(Website website)
         {
 

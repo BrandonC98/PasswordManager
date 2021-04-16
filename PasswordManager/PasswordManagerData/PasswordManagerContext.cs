@@ -15,8 +15,15 @@ namespace PasswordManagerData
         public DbSet<MasterPassword> MasterPasswords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-    => options.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PasswordManager;");
+        {
 
+            if (!options.IsConfigured)
+            {
+                options.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = PasswordManager;");
+            }
+        }
+
+   
         public PasswordManagerContext()
         {
 

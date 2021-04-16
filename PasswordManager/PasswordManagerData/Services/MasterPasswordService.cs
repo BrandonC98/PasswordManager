@@ -18,6 +18,13 @@ namespace PasswordManagerData.Services
 
         }
 
+        public MasterPasswordService(PasswordManagerContext context)
+        {
+
+            _context = context;
+
+        }
+
         public MasterPassword GetMasterPasswordById(int masterPasswordId)
         {
             return _context.MasterPasswords.Where(mp => mp.UserId == masterPasswordId).FirstOrDefault();

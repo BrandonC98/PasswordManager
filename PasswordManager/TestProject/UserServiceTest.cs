@@ -21,7 +21,7 @@ namespace TestProject
         public void OneTimeSetUp()
         {
 
-            var option = new DbContextOptionsBuilder<PasswordManagerContext>().UseInMemoryDatabase(databaseName: "Example_DB")
+            var option = new DbContextOptionsBuilder<PasswordManagerContext>().UseInMemoryDatabase(databaseName: "InMemoryDb")
                 .Options;
 
             _context = new PasswordManagerContext(option);
@@ -42,12 +42,11 @@ namespace TestProject
                 EmailAddress = "JaneDoe@Testing.com",
 
             });
-
-            
+                        
         }
 
         [Test]
-        public void GivenANewUSer_CreateUserAddItToDataBase()
+        public void GivenANewUser_CreateUserAddItToDataBase()
         {
 
             var numberOfUserBefore = _context.Users.Count();
@@ -70,6 +69,17 @@ namespace TestProject
 
             _context.Users.Remove(userInDb);
             _context.SaveChanges();
+
+        }
+
+        [Test]
+        public void ReturnsAValidUser_WhenGetUserByIdIsCalled()
+        {
+
+            var result = _sut.GetByEmail("JohnDoe@Testing.com");
+            Assert.That(result.FirstName, Is.EqualTo("John"));
+            Assert.That(result.LastName, Is.EqualTo("Doe"));
+            Assert.That(result.EmailAddress, Is.EqualTo("JohnDoe@Testing.com"));
 
         }
 
