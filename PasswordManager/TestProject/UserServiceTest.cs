@@ -75,6 +75,28 @@ namespace TestProject
         [Test]
         public void ReturnsAValidUser_WhenGetUserByIdIsCalled()
         {
+            var user = _context.Users.
+                Where(u => u.EmailAddress == "JohnDoe@Testing.com").FirstOrDefault();
+            var result = _sut.GetUserById(user.Id);
+            Assert.That(result.FirstName, Is.EqualTo("John"));
+            Assert.That(result.LastName, Is.EqualTo("Doe"));
+            Assert.That(result.EmailAddress, Is.EqualTo("JohnDoe@Testing.com"));
+
+        }
+
+        [Test]
+        public void ReturnsTrue_WhenAUserIsCurrentlyInTheDataBase()
+        {
+
+            var result = _sut.Exist("JohnDoe@Testing.com");
+
+            Assert.That(result, Is.True);
+
+        }
+
+        [Test]
+        public void ReturnsAValidUser_WhenGetByEmailIsCalled()
+        {
 
             var result = _sut.GetByEmail("JohnDoe@Testing.com");
             Assert.That(result.FirstName, Is.EqualTo("John"));
@@ -82,6 +104,7 @@ namespace TestProject
             Assert.That(result.EmailAddress, Is.EqualTo("JohnDoe@Testing.com"));
 
         }
+
 
     }
 }
