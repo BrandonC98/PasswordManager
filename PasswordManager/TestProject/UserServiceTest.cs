@@ -105,6 +105,31 @@ namespace TestProject
 
         }
 
+        [Test]
+        public void GivenAUserId_RemoveItFromTheDataBase()
+        {
+
+            var user = _context.Users.
+                Where(u => u.EmailAddress == "JohnDoe@Testing.com").
+                FirstOrDefault();
+
+            Assert.That(_context.Users, Does.Contain(user),
+                "Test user Isn't in the database. it should be added in the OneTimeSetUp");
+
+            _sut.RemoveUser(user.Id);
+
+            Assert.That(_context.Users, Does.Not.Contain(user));
+
+            //clean up
+            _sut.CreateUser(new User()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "JohnDoe@Testing.com",
+
+            });
+        }
+
 
     }
 }
