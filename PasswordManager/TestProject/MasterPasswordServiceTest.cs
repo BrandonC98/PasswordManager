@@ -79,5 +79,31 @@ namespace TestProject
 
         }
 
+        [Test]
+        [Category("Happy Path")]
+        [Category("Service Test")]
+        public void Delete()
+        {
+
+            var user = new User()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "JohnDoe@Testing.com",
+
+            };
+
+            _context.Users.Add(user);
+
+            var salt = Hash.GenerateSalt(20);
+            var hashPassword = Hash.GenerateHash(Encoding.ASCII.GetBytes("Password!_"), salt, 1000, 16);
+            _sut.Create(hashPassword, salt, 1000, user.Id);
+
+            Assert.That(_context.MasterPasswords.Where(mp => mp.UserId == user.Id).FirstOrDefault(), Is.Not.Null);
+
+            _context.Remove(user);
+
+        }
+
     }
 }
