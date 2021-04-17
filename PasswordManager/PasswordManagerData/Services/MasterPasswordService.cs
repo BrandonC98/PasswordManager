@@ -54,6 +54,8 @@ namespace PasswordManagerData.Services
         public void DeleteMasterPasswordById(int id)
         {
 
+            if (_context.MasterPasswords.Find(id) == null) throw new NullReferenceException($"No MasterPassword with the Id of {id} was found");
+            
             _context.RemoveRange(_context.MasterPasswords.Find(id));
             _context.SaveChanges();
 

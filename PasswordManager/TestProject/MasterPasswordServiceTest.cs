@@ -82,7 +82,7 @@ namespace TestProject
         [Test]
         [Category("Happy Path")]
         [Category("Service Test")]
-        public void Delete()
+        public void RemoveTheUser_WhenDeletePasswordByIdIscalled()
         {
 
             var user = new User()
@@ -101,7 +101,18 @@ namespace TestProject
 
             Assert.That(_context.MasterPasswords.Where(mp => mp.UserId == user.Id).FirstOrDefault(), Is.Not.Null);
 
-            _context.Remove(user);
+            _sut.DeleteMasterPasswordById(_sut.GetMasterPasswordByUserId(user.Id).Id);
+
+            Assert.That(_context.MasterPasswords.Where(mp => mp.UserId == user.Id).FirstOrDefault(), Is.Null);
+        }
+
+        [Test]
+        [Category("Unhappy Path")]
+        [Category("Service Test")]
+        public void ReturnAnError_WhenDeletePasswordByIdIsCalledWithInvalidId()
+        {
+
+            Assert.That(() => _sut.DeleteMasterPasswordById(-1), Throws.TypeOf<NullReferenceException>());
 
         }
 
